@@ -5,8 +5,9 @@ import MesoOne from "./Components/Meso-one/MesoOne";
 import Header from "./Components/Header/Header";
 import MesoMain from "./Components/Meso-MainPage/MesoMain";
 import HomeSix from "./Components/Home-six/HomeSix";
-
 import Womenandmesothelioma from "./Components/Womenandmesothelioma"
+import Disclaimer from "./Components/Disclaimer"
+import PrivacyPolicy from "./Components/PrivacyPolicy"
 import AutoMobile from "./Components/AutoMobile"
 import MesoConstruction from "./Components/MesoConstruction"
 import Hometwo from "./Components/Home-two/Hometwo";
@@ -59,6 +60,14 @@ function App() {
     {
       path: '/ClaimForm',
       element: <ClaimForm />,
+    },
+    {
+      path: '/Disclaimer',
+      element: <Disclaimer />,
+    },
+    {
+      path: '/PrivacyPolicy',
+      element: <PrivacyPolicy />,
     },
     {
       path: '/Womenandmesothelioma',

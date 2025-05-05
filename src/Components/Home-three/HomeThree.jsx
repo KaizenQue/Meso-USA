@@ -16,8 +16,8 @@ function HomeThree() {
 
     <>
       {/* Desktop Version */}
-      <section className="hidden md:block w-full bg-[#FAF3EC] font-helvetica text-[#4B2C5E] overflow-hidden absolute ">
-        <div className="relative w-full py-[60px]">
+      <section className="hidden md:block w-full bg-[#FAF3EC] font-helvetica text-[#4B2C5E] overflow-hidden">
+        <div className="relative w-full py-[10px]">
           <div className="relative max-w-[1200px] mx-auto px-[40px]">
             {/* <h2 className="font-georgia text-[80px] font-normal mb-[40px] leading-[1.14] text-[#4B2C5E] mt-32 ml-[-16%]">
               <img
@@ -26,7 +26,7 @@ function HomeThree() {
                 className="w-[750px] h-full ml-[13px] top-[19px] left-[-59%]"
               />
             </h2> */}
-            <h3 className="font-georgia text-[80px] font-normal italic leading-[1.14] text-[#4B2C5E] text-left mt-[6%] ml-[4%]">
+            <h3 className="font-georgia text-[80px] font-normal italic leading-[1.14] text-[#4B2C5E] text-left mt-[30%] ml-[4%]">
               <div className=" text-left  ml-[-8%]">YOU GAVE EVERYTHING, </div>
               <div className="text-[#4B2C5E]/60 ml-[-8%]">BUT NO ONE WARNED YOU ABOUT ASBESTOS</div>
             </h3>

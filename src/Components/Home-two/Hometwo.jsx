@@ -263,20 +263,20 @@ const Hometwo = () => {
                   <span className="text-[#4B2C5E]/60 italic font-georgia"> Matters</span>
                 </h1>
                 <p className="text-[#4B2C5E] font-helvetica text-[24px] font-normal  w-[660px] h-auto ml-[10%] mt-[6%] text-left">
-                You're a parent, a partner, a friend-and you deserve more than care. You deserve compassion, presence, and someone who walks beside you every step of the way.
+                  You're a parent, a partner, a friend-and you deserve more than care. You deserve compassion, presence, and someone who walks beside you every step of the way.
                 </p>
               </div>
             </div>
 
-            <div className="p-[30px] mt-[0.5%] ml-[42%] w-[817px] h-[465px] text-center shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-[20px] bg-white">
+            <div className="p-[30px] mt-[0.5%] ml-[42%] w-[817px] h-[700px] text-center shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-[20px] bg-white absolute z-10">
               <p className="text-[#4B2C5E] font-feature-dlig font-georgia text-[24px] italic font-normal leading-10 w-[679px] text-left h-[100px]">
                 {/* <em>Our legal experts don’t just support you-they fight for you with compassion and clarity. 
                 </em> */}
                 <em>Your journey to justice starts here.</em>
               </p>
               {/* <p className="text-[#4B2C5E] font-georgia text-[32px] mt-[1%] italic font-normal leading-none w-[679px] text-left h-[100px]"> */}
-                {/* <em> Fill out the form now.</em> */}
-                {/* <em>Your journey to justice starts here.</em> */}
+              {/* <em> Fill out the form now.</em> */}
+              {/* <em>Your journey to justice starts here.</em> */}
               {/* </p> */}
               <form ref={formRef} onSubmit={handleSubmit} className="pb-10">
                 <div className="flex mt-[-3%]">
@@ -341,6 +341,55 @@ const Hometwo = () => {
                     />
                   </div>
                 </div>
+                <div className="space-y-4 mt-16 text-left">
+                  <div className="flex items-start gap-4 font-['Helvetica']">
+                    <input
+                      type="checkbox"
+                      name="settlement"
+                      checked={formData.settlement}
+                      onChange={handleChange}
+                      className="mt-1"
+                    />
+                    <div className="text-xs sm:text-sm">I would be needing help to file a settlement.</div>
+                  </div>
+                  {errors.settlement && <div className="text-red-500 text-sm">{errors.settlement}</div>}
+                  <div className="flex items-start gap-4">
+                    <input
+                      type="checkbox"
+                      name="privacyPolicy"
+                      checked={formData.privacyPolicy}
+                      onChange={handleChange}
+                      className="mt-1"
+                    />
+                    <div className="text-xs sm:text-sm font-['Helvetica'] ">
+                      <span className="block">
+                        I agree to the{' '}
+                        <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
+                          privacy policy
+                        </a>{' '}
+                        and{' '}
+                        <a href="/Disclaimer" className="underline hover:text-blue-200">
+                          disclaimer
+                        </a>
+                        &nbsp; and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
+                      </span>
+                      <span> </span>
+                    </div>
+                  </div>
+                  {errors.privacyPolicy && <div className="text-red-500 text-sm">{errors.privacyPolicy}</div>}
+
+                  <div className="flex items-start gap-4 font-['Helvetica']">
+                    <input
+                      type="checkbox"
+                      name="humanVerification"
+                      checked={formData.humanVerification}
+                      onChange={handleChange}
+                      className="mt-1"
+                    />
+                    <div className="text-xs sm:text-sm">Please check this box to verify you're a person.</div>
+                  </div>
+                  {errors.humanVerification && <div className="text-red-500 text-sm">{errors.humanVerification}</div>}
+                </div>
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -377,7 +426,7 @@ const Hometwo = () => {
             <span className="text-[#4B2C5E]/60">Every Day Matters</span>
           </h1>
           <p className="text-[#4B2C5E] font-helvetica text-lg mt-6 px-4 text-center">
-          You're a parent, a partner, a friend-and you deserve more than care. You deserve compassion, presence, and someone who walks beside you every step of the way.
+            You're a parent, a partner, a friend-and you deserve more than care. You deserve compassion, presence, and someone who walks beside you every step of the way.
           </p>
         </div>
 
@@ -450,6 +499,55 @@ const Hometwo = () => {
               helperText={errors.emailId}
               sx={textFieldStyle}
             />
+            <div className="space-y-4 mt-5 text-left">
+              <div className="flex items-start gap-4 font-['Helvetica']">
+                <input
+                  type="checkbox"
+                  name="settlement"
+                  checked={formData.settlement}
+                  onChange={handleChange}
+                  className="mt-1"
+                />
+                <div className="text-xs sm:text-sm">I would be needing help to file a settlement.</div>
+              </div>
+              {errors.settlement && <div className="text-red-500 text-sm">{errors.settlement}</div>}
+              <div className="flex items-start gap-4">
+                <input
+                  type="checkbox"
+                  name="privacyPolicy"
+                  checked={formData.privacyPolicy}
+                  onChange={handleChange}
+                  className="mt-1"
+                />
+                <div className="text-xs sm:text-sm font-['Helvetica'] ">
+                  <span className="block">
+                    I agree to the{' '}
+                    <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
+                      privacy policy
+                    </a>{' '}
+                    and{' '}
+                    <a href="/Disclaimer" className="underline hover:text-blue-200">
+                      disclaimer
+                    </a>
+                    &nbsp; and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
+                  </span>
+                  <span> </span>
+                </div>
+              </div>
+              {errors.privacyPolicy && <div className="text-red-500 text-sm">{errors.privacyPolicy}</div>}
+
+              <div className="flex items-start gap-4 font-['Helvetica']">
+                <input
+                  type="checkbox"
+                  name="humanVerification"
+                  checked={formData.humanVerification}
+                  onChange={handleChange}
+                  className="mt-1"
+                />
+                <div className="text-xs sm:text-sm">Please check this box to verify you're a person.</div>
+              </div>
+              {errors.humanVerification && <div className="text-red-500 text-sm">{errors.humanVerification}</div>}
+            </div>
 
             <button
               type="submit"

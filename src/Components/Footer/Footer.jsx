@@ -59,43 +59,40 @@ const Footer = () => {
 
                         {/* Navigation Links */}
                         <div className="flex flex-col space-y-3 items-center md:items-start md:pl-8 lg:pl-12">
-  <NavLink
-    to="/"
-    style={{ textDecoration: 'none' }}
-    className={({ isActive }) =>
-      `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${
-        isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
-      }`
-    }
-    onClick={() => window.scrollTo(0, 0)}
-  >
-    Home
-  </NavLink>
-  <NavLink
-    to="/MesothMainPage"
-    style={{ textDecoration: 'none' }}
-    className={({ isActive }) =>
-      `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${
-        isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
-      }`
-    }
-    onClick={() => window.scrollTo(0, 0)}
-  >
-    Mesothelioma
-  </NavLink>
-  <NavLink
-    to="/AboutMain"
-    style={{ textDecoration: 'none' }}
-    className={({ isActive }) =>
-      `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${
-        isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
-      }`
-    }
-    onClick={() => window.scrollTo(0, 0)}
-  >
-    About us
-  </NavLink>
-</div>
+                            <NavLink
+                                to="/"
+                                style={{ textDecoration: 'none' }}
+                                className={({ isActive }) =>
+                                    `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
+                                    }`
+                                }
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                to="/MesothMainPage"
+                                style={{ textDecoration: 'none' }}
+                                className={({ isActive }) =>
+                                    `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
+                                    }`
+                                }
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                Mesothelioma
+                            </NavLink>
+                            <NavLink
+                                to="/AboutMain"
+                                style={{ textDecoration: 'none' }}
+                                className={({ isActive }) =>
+                                    `font-helvetica font-normal text-[18px] sm:text-[20px] lg:text-[24px] cursor-pointer ${isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
+                                    }`
+                                }
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                About us
+                            </NavLink>
+                        </div>
 
                         {/* Newsletter Section */}
                         <div className="flex flex-col space-y-4 mt-6 md:mt-0">
@@ -131,10 +128,10 @@ const Footer = () => {
                             <div className="flex items-center justify-center md:justify-end space-x-4 mt-6 md:mt-8">
                                 <img className="w-6 h-6 md:w-8 md:h-8" alt="" src={emailImg} />
                                 <a className="text-[16px] md:text-[18px] underline leading-[34px] font-['Helvetica'] text-[#4B2C5E]"
-                                    href="mailto:info@connect2attorney.com"
+                                    href="mailto:reachus@fightformesothelioma.com"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    info@connect2attorney.com
+                                    reachus@fightformesothelioma.com
                                 </a>
                             </div>
                         </div>
@@ -144,8 +141,15 @@ const Footer = () => {
                     <div className="mt-8 pt-4 border-t border-[#f3e2c8] flex flex-col sm:flex-row items-center justify-between text-[rgba(75,44,94,0.66)]">
                         <div className="text-center sm:text-left mb-4 sm:mb-0 text-[12px] sm:text-[14px]">
                             <span className="text-[14px] sm:text-[16px] font-medium font-helvetica text-[#c6c3c3] mr-1">©</span>
-                            <span>2025.</span>
-                            <span className="ml-1">All rights reserved</span>
+                            <span>2025.</span> 
+                            <span className="ml-1">All rights reserved &nbsp;</span>
+                            <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
+                                privacy policy
+                            </a>{' '}
+                            and{' '}
+                            <a href="/Disclaimer" className="underline hover:text-blue-200">
+                                disclaimer
+                            </a>
                         </div>
                         <div className="flex justify-center">
                             <div className="flex space-x-2 sm:space-x-4">

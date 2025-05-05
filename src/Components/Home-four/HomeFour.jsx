@@ -7,7 +7,7 @@ function HomeFour() {
     return (
         <>
             {/* Desktop Version */}
-            <div className="hidden md:block mt-[84%]">
+            <div className="hidden md:block mt-[4%]">
                 <div className="flex justify-center items-center h-[50vh] bg-[#FAF3EC]">
                     <div className="flex items-center text-center max-w-[1400px] p-10 relative">
                         <img src={leftSvg} alt="left" className="w-full h-full absolute z-10 ml-[-10%]" />
