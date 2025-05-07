@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import { sendClaimFormEmail } from '../../../utils/emailService';
 
 const textFieldStyle = {
   '& .MuiInputLabel-root': {
@@ -256,52 +257,16 @@ const ClaimOne = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
       setIsSubmitting(true);
 
-      // EmailJS service, template and public key configuration
-      const serviceId = 'service_3vbv36o';
-      const templateId = 'template_idmq87s';
-      const publicKey = '5saECdElLOrsCGmdQ';
-
-      // Get state name from value
-      const stateName = usStates.find(state => state.value === formData.state)?.label || formData.state;
-
-      // Get exposure type and location labels
-      const exposureType = (() => {
-        switch (formData.asbestosExposure) {
-          case 'workplace': return 'Workplace';
-          case 'home': return 'Home';
-          case 'secondary': return 'Secondary Exposure';
-          case 'other': return 'Other';
-          default: return formData.asbestosExposure;
-        }
-      })();
-
-      const exposureLocation = exposureLocations.find(loc => loc.value === formData.exposureLocation)?.label || formData.exposureLocation;
-
-      // Prepare template parameters to match exactly with EmailJS template variables
-      const templateParams = {
-        from_name: `${formData.firstName} ${formData.lastName}`,
-        email: formData.emailId,
-        phone_number: formData.phoneNumber,
-        state: stateName,
-        exposure_type: exposureType,
-        exposure_location: exposureLocation,
-        diagnosis_date: "Not provided", // Could add a diagnosis date field to the form if needed
-        additional_info: formData.story || "No additional information provided",
-        agreed_to_terms: formData.privacyPolicy ? "Yes" : "No",
-        to_name: "Admin" // Adding a recipient name for the template
-      };
-
-      // Send email using EmailJS
-      emailjs.send(serviceId, templateId, templateParams, publicKey)
-        .then((response) => {
-          console.log('Email sent successfully:', response);
-          // Open success dialog instead of showing toast
+      try {
+        const result = await sendClaimFormEmail(formData);
+        
+        if (result.success) {
           setSuccessDialogOpen(true);
           // Reset form data
           setFormData({
@@ -317,13 +282,15 @@ const ClaimOne = () => {
             privacyPolicy: false,
             humanVerification: false
           });
-          setIsSubmitting(false);
-        })
-        .catch((error) => {
-          console.error('Email sending error:', error);
+        } else {
           toast.error('Error submitting form. Please try again.');
-          setIsSubmitting(false);
-        });
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        toast.error('Error submitting form. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
       toast.error('Please correct the errors in the form');
     }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You for Contacting Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #4b2c5e;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #faf3ec;
+        }
+        .content {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2e4a7d;
+            color: #f8f2e9;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Thank You for Reaching Out!</h1>
+    </div>
+    <div class="content">
+        <p>Dear {{to_name}},</p>
+        <p>Thank you for submitting your {{form_type}}. We have received your information and will get back to you soon.</p>
+        <p>Here's a summary of your submission:</p>
+        <ul>
+            <li>Submission Date: {{submission_date}}</li>
+            <li>Form Type: {{form_type}}</li>
+        </ul>
+        <p>If you have any questions in the meantime, please don't hesitate to contact us.</p>
+        <p>Best regards,<br>The Fight For Mesothelioma Team</p>
+    </div>
+    <div class="footer">
+        <p>This is an automated message, please do not reply directly to this email.</p>
+        <p>© 2024 Fight For Mesothelioma. All rights reserved.</p>
+    </div>
+</body>
+</html> 

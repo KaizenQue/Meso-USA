@@ -11,6 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import { sendHomeFormEmail } from '../../utils/emailService';
 
 const textFieldStyle = {
   '& .MuiInputLabel-root': {
@@ -134,7 +135,7 @@ const Hometwo = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -144,23 +145,10 @@ const Hometwo = () => {
 
     setIsSubmitting(true);
 
-    // EmailJS service, template and public key configuration
-    const serviceId = 'service_3vbv36o';
-    const templateId = 'template_7xrqzk5';
-    const publicKey = '5saECdElLOrsCGmdQ';
-
-    // Prepare template parameters to match exactly with EmailJS template variables
-    const templateParams = {
-      from_name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.emailId,
-      phone_number: formData.phoneNumber,
-    };
-
-    // Send email using EmailJS
-    emailjs.send(serviceId, templateId, templateParams, publicKey)
-      .then((response) => {
-        console.log('Email sent successfully:', response);
-        // Open success dialog instead of showing toast
+    try {
+      const result = await sendHomeFormEmail(formData);
+      
+      if (result.success) {
         setSuccessDialogOpen(true);
         // Reset form data
         setFormData({
@@ -169,13 +157,15 @@ const Hometwo = () => {
           phoneNumber: '',
           emailId: ''
         });
-        setIsSubmitting(false);
-      })
-      .catch((error) => {
-        console.error('Email sending error:', error);
+      } else {
         toast.error('Error submitting form. Please try again.');
-        setIsSubmitting(false);
-      });
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast.error('Error submitting form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -270,7 +260,7 @@ const Hometwo = () => {
 
             <div className="p-[30px] mt-[0.5%] ml-[42%] w-[817px] h-[700px] text-center shadow-[0_4px_8px_rgba(0,0,0,0.1)] rounded-[20px] bg-white absolute z-10">
               <p className="text-[#4B2C5E] font-feature-dlig font-georgia text-[24px] italic font-normal leading-10 w-[679px] text-left h-[100px]">
-                {/* <em>Our legal experts don’t just support you-they fight for you with compassion and clarity. 
+                {/* <em>Our legal experts don't just support you-they fight for you with compassion and clarity. 
                 </em> */}
                 <em>Your journey to justice starts here.</em>
               </p>

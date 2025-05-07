@@ -6,10 +6,12 @@ import instagram from '../../assets/insta.svg';
 import emailImg from '../../assets/email.svg';
 import logo from '../../assets/Meso logo-01 1.png'
 import { NavLink } from 'react-router-dom';
+import { sendNewsletterSubscription } from '../../utils/emailService';
 
 const Footer = () => {
     const [email, setEmail] = useState('');
     const [subscriptionStatus, setSubscriptionStatus] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -20,25 +22,22 @@ const Footer = () => {
             return;
         }
 
-        try {
-            // Simulated API call (replace with actual backend endpoint)
-            const response = await fetch('/api/subscribe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email }),
-            });
-
-            if (response.ok) {
-                setSubscriptionStatus('Thank you for subscribing!');
-                setEmail(''); // Clear input after successful subscription
-            } else {
-                setSubscriptionStatus('Subscription failed. Please try again.');
-            }
-        } catch (error) {
-            setSubscriptionStatus('An error occurred. Please try again.');
-        }
+        setIsLoading(true);
+        // try {
+        //     const result = await sendNewsletterSubscription(email, 'Footer');
+            
+        //     if (result.success) {
+        //         setSubscriptionStatus('Thank you for subscribing!');
+        //         setEmail(''); // Clear input after successful subscription
+        //     } else {
+        //         setSubscriptionStatus('Subscription failed. Please try again.');
+        //     }
+        // } catch (error) {
+        //     console.error('Subscription error:', error);
+        //     setSubscriptionStatus('An error occurred. Please try again.');
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     return (
@@ -112,9 +111,22 @@ const Footer = () => {
 
                                     <button
                                         type="submit"
-                                        className="rounded-[10px] sm:rounded-l-none sm:rounded-r-[10px] bg-[#4b2c5e] px-4 md:px-6 py-3 md:py-4 text-[#f8f2e9] text-[16px] md:text-[20px] mb-2"
+                                        disabled={isLoading}
+                                        className={`rounded-[10px] sm:rounded-l-none sm:rounded-r-[10px] bg-[#4b2c5e] px-4 md:px-6 py-3 md:py-4 text-[#f8f2e9] text-[16px] md:text-[20px] mb-2 transition-all duration-300 flex items-center justify-center min-w-[120px] ${
+                                            isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-[#3a2247]'
+                                        }`}
                                     >
-                                        <b>Subscribe</b>
+                                        {isLoading ? (
+                                            <>
+                                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <span>Subscribing...</span>
+                                            </>
+                                        ) : (
+                                            <b>Subscribe</b>
+                                        )}
                                     </button>
                                 </div>
                                 {subscriptionStatus && (
