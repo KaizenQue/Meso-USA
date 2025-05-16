@@ -1,17 +1,33 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Vector2 from "../../assets/Vector2.png";
 import Vector1 from "../../assets/Vector1.png";
-import TextField from '@mui/material/TextField';
 import emailjs from '@emailjs/browser';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
+
 import { sendHomeFormEmail } from '../../utils/emailService';
+import {
+  Button,
+  TextField,
+  Paper,
+  Typography,
+  Box,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  CircularProgress,
+} from "@mui/material";
 
 const textFieldStyle = {
   '& .MuiInputLabel-root': {
@@ -52,6 +68,46 @@ const textFieldStyle = {
   }
 };
 
+const selectFieldStyle = {
+  ...textFieldStyle,
+  "& .MuiSelect-select": {
+    fontSize: "20px",
+    fontFamily: "Helvetica",
+    color: "#4b2c5e",
+  },
+  "& .MuiSelect-icon": {
+    color: "#4b2c5e",
+  },
+  "& .MuiInputLabel-root": {
+    color: "#4b2c5e",
+    fontSize: "20px",
+    fontFamily: "Helvetica",
+    "&.Mui-focused": {
+      color: "#4b2c5e",
+    },
+  },
+  "& .MuiInput-underline:before": {
+    borderBottomColor: "rgba(75,44,94,0.4)",
+  },
+  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+    borderBottomColor: "rgba(75,44,94,0.6)",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#4b2c5e",
+  },
+  "& .MuiFormHelperText-root": {
+    fontSize: "14px",
+    fontFamily: "Helvetica",
+    marginLeft: "0",
+  },
+};
+
+const menuItemStyle = {
+  fontSize: "18px",
+  fontFamily: "Helvetica",
+  color: "#4b2c5e",
+};
+
 const Hometwo = () => {
   const formRef = useRef();
 
@@ -65,11 +121,25 @@ const Hometwo = () => {
 
   // Add state for form errors
   const [errors, setErrors] = useState({});
-
+  const [pingUrl, setPingUrl] = useState("");
+  const [certId, setCertId] = useState("");
+  const [tokenUrl, settokenUrl] = useState("");
   // State for form submission status
   const [isSubmitting, setIsSubmitting] = useState(false);
   // State for success dialog
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+
+  const formatPhoneNumber = (value) => {
+    if (!value) return value;
+    const digits = value.replace(/\D/g, "");
+    if (digits.length <= 10) return digits;
+    if (digits.length <= 10)
+      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(
+      6,
+      10
+    )}`;
+  };
 
   // Handle input changes
   const handleChange = (e) => {
@@ -138,33 +208,93 @@ const Hometwo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      toast.error('Please correct the errors in the form');
-      return;
+    if (validateForm()) {
+      setIsSubmitting(true);
+
+      try {
+        const result = await sendConstructionFormEmail(formData, {
+          xxTrustedFormCertUrl: certId,
+          xxTrustedFormPingUrl: pingUrl,
+          xxTrustedFormCertToken: tokenUrl,
+        });
+
+        if (result.success) {
+          setSuccessDialogOpen(true);
+          // Reset form data
+          setFormData({
+            firstName: "",
+            lastName: "",
+            phoneNumber: "",
+            emailId: "",
+            dateOfBirth: "",
+            dateOfDiagnosis: "",
+            diagnosisType: "",
+            otherDiagnosis: "",
+            jobTitle: "",
+            settlement: false,
+            privacyPolicy: false,
+            humanVerification: false,
+          });
+        } else {
+          toast.error("Error submitting form. Please try again.");
+        }
+      } catch (error) {
+        console.error("Form submission error:", error);
+        toast.error("Error submitting form. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      toast.error("Please correct the errors in the form");
+    }
+  };
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (
+          mutation.type === "attributes" &&
+          mutation.attributeName === "value"
+        ) {
+          const certUrl = mutation;
+          const certIdVar = mutation.target.value;
+          const tokenUrlVar = mutation.target.value;
+          const pingUrlVar =
+            mutation.target.attributes[0].ownerDocument.all[
+              "xxTrustedFormPingUrl"
+            ].value;
+
+          console.log("cert_id:", certIdVar);
+          console.log("pingUrl:", pingUrlVar);
+          console.log("tokenUrl:", tokenUrlVar);
+
+          setCertId(certIdVar);
+          setPingUrl(pingUrlVar);
+          settokenUrl(tokenUrlVar);
+
+          if (certUrl) {
+            console.log("TrustedForm Cert URL:", certUrl);
+            fetchCertData(certUrl); // Fetch the certificate data
+          }
+        }
+      });
+    });
+
+    const certField = document.getElementById("xxTrustedFormCertUrl");
+    if (certField) {
+      observer.observe(certField, { attributes: true });
     }
 
-    setIsSubmitting(true);
+    return () => observer.disconnect();
+  }, []);
 
+  const fetchCertData = async (certUrl) => {
     try {
-      const result = await sendHomeFormEmail(formData);
-      
-      if (result.success) {
-        setSuccessDialogOpen(true);
-        // Reset form data
-        setFormData({
-          firstName: '',
-          lastName: '',
-          phoneNumber: '',
-          emailId: ''
-        });
-      } else {
-        toast.error('Error submitting form. Please try again.');
-      }
+      const response = await fetch(certUrl);
+      const data = await response.json();
+      console.log("TrustedForm Cert Data:", data);
     } catch (error) {
-      console.error('Form submission error:', error);
-      toast.error('Error submitting form. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      console.error("Error fetching TrustedForm cert:", error);
     }
   };
 
@@ -268,7 +398,7 @@ const Hometwo = () => {
               {/* <em> Fill out the form now.</em> */}
               {/* <em>Your journey to justice starts here.</em> */}
               {/* </p> */}
-              <form ref={formRef} onSubmit={handleSubmit} className="pb-10">
+              {/* <form ref={formRef} onSubmit={handleSubmit} className="pb-10">
                 <div className="flex mt-[-3%]">
                   <div className="flex-1 px-4">
                     <TextField
@@ -387,6 +517,460 @@ const Hometwo = () => {
                 >
                   {isSubmitting ? 'Submitting...' : 'Begin Here'}
                 </button>
+              </form> */}
+              <form
+                onSubmit={handleSubmit}
+                id="lead-form"
+                className="space-y-6"
+                data-tf-element-role="offer"
+              >
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                  <div className="w-full md:flex-1">
+                    {/* Hidden TrustedForm field (separate from firstName) */}
+
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                      value={certId}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertToken"
+                      name="xxTrustedFormCertToken"
+                      value={tokenUrl}
+                    />
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormPingUrl"
+                      name="xxTrustedFormPingUrl"
+                      value={pingUrl}
+                    />
+
+                    {/* First Name TextField (now clean) */}
+                    <TextField
+                      id="firstName"
+                      name="firstName"
+                      label="First Name *"
+                      variant="standard"
+                      fullWidth
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      error={!!errors.firstName}
+                      helperText={errors.firstName}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="lastName"
+                      name="lastName"
+                      label="Last Name *"
+                      variant="standard"
+                      type="text"
+                      fullWidth
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      error={!!errors.lastName}
+                      helperText={errors.lastName}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      label="Phone Number *"
+                      variant="standard"
+                      type="number"
+                      inputProps={{
+                        maxLength: 10, // Restricts input to 10 characters
+                        pattern: "\\d{10}", // Regex for exactly 10 digits
+                        inputMode: "numeric", // Shows numeric keyboard on mobile
+                      }}
+                      fullWidth
+                      value={formatPhoneNumber(formData.phoneNumber)}
+                      onChange={handleChange}
+                      error={!!errors.phoneNumber}
+                      helperText={errors.phoneNumber}
+                      placeholder="+1 XXX-XXX-XXXX"
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="emailId"
+                      name="emailId"
+                      label="Email ID *"
+                      variant="standard"
+                      type="email"
+                      fullWidth
+                      value={formData.emailId}
+                      onChange={handleChange}
+                      error={!!errors.emailId}
+                      helperText={errors.emailId}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                </div>
+
+                {/* <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                                                              <div className="w-full md:flex-1">
+                                                                  <FormControl
+                                                                      fullWidth
+                                                                      error={!!errors.state}
+                                                                      variant="standard"
+                                                                  >
+                                                                      <InputLabel
+                                                                          id="state-label"
+                                                                          sx={{
+                                                                              color: "#4b2c5e",
+                                                                              fontSize: "20px",
+                                                                              fontFamily: "Helvetica",
+                                                                              fontWeight: "bold",
+                                                                              "&.Mui-focused": {
+                                                                                  color: "#4b2c5e",
+                                                                              },
+                                                                          }}
+                                                                      >
+                                                                          State *
+                                                                      </InputLabel>
+                                                                      <Select
+                                                                          labelId="state-label"
+                                                                          id="state"
+                                                                          name="state"
+                                                                          value={formData.state}
+                                                                          label="State *"
+                                                                          onChange={handleChange}
+                                                                          sx={selectFieldStyle}
+                                                                          MenuProps={{
+                                                                              PaperProps: {
+                                                                                  sx: {
+                                                                                      "& .MuiMenuItem-root": menuItemStyle,
+                                                                                  },
+                                                                              },
+                                                                          }}
+                                                                      >
+                                                                          <MenuItem value="">Select a state</MenuItem>
+                                                                          {usStates.map((state) => (
+                                                                              <MenuItem key={state.value} value={state.value}>
+                                                                                  {state.label}
+                                                                              </MenuItem>
+                                                                          ))}
+                                                                      </Select>
+                                                                      {errors.state && (
+                                                                          <FormHelperText>{errors.state}</FormHelperText>
+                                                                      )}
+                                                                  </FormControl>
+                                                              </div>
+                                                          </div> */}
+
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="dateOfBirth"
+                      name="dateOfBirth"
+                      label="Date of Birth *"
+                      type="date"
+                      variant="standard"
+                      fullWidth
+                      value={formData.dateOfBirth}
+                      onChange={handleChange}
+                      error={!!errors.dateOfBirth}
+                      helperText={errors.dateOfBirth}
+                      InputLabelProps={{ shrink: true }}
+                      inputProps={{
+                        max: new Date(
+                          new Date().setFullYear(
+                            new Date().getFullYear() - 18
+                          )
+                        )
+                          .toISOString()
+                          .split("T")[0], // Restricts dates to 18+ only
+                      }}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="dateOfDiagnosis"
+                      name="dateOfDiagnosis"
+                      label="Date of Diagnosis *"
+                      type="date"
+                      variant="standard"
+                      fullWidth
+                      value={formData.dateOfDiagnosis}
+                      onChange={handleChange}
+                      error={!!errors.dateOfDiagnosis}
+                      helperText={
+                        errors.dateOfDiagnosis ||
+                        "Future dates are not allowed"
+                      }
+                      InputLabelProps={{ shrink: true }}
+                      inputProps={{
+                        max: new Date().toISOString().split("T")[0], // Blocks dates after today
+                      }}
+                      sx={{
+                        ...textFieldStyle,
+                        "& .MuiInput-input": {
+                          cursor: "pointer", // Shows it's clickable
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                  <div className="w-full md:flex-1">
+                    <FormControl
+                      fullWidth
+                      error={!!errors.diagnosisType}
+                      variant="standard"
+                    >
+                      <input
+                        type="hidden"
+                        id="xxTrustedFormCertUrl"
+                        name="xxTrustedFormCertUrl"
+                      />
+
+                      <InputLabel
+                        id="diagnosis-type-label"
+                        sx={{
+                          color: "#4b2c5e",
+                          fontSize: "20px",
+                          fontFamily: "Helvetica",
+                          "&.Mui-focused": {
+                            color: "#4b2c5e",
+                          },
+                        }}
+                      >
+                        Type of Diagnosis *
+                      </InputLabel>
+                      <Select
+                        labelId="diagnosis-type-label"
+                        id="diagnosisType"
+                        name="diagnosisType"
+                        value={formData.diagnosisType}
+                        label="Type of Diagnosis *"
+                        onChange={handleChange}
+                        sx={selectFieldStyle}
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              "& .MuiMenuItem-root": menuItemStyle,
+                            },
+                          },
+                        }}
+                      >
+                        <MenuItem value="">Select diagnosis type</MenuItem>
+                        <MenuItem value="mesothelioma">
+                          Mesothelioma
+                        </MenuItem>
+                        <MenuItem value="lung_cancer">Lung Cancer</MenuItem>
+                        <MenuItem value="other">Others</MenuItem>
+                      </Select>
+                      {errors.diagnosisType && (
+                        <FormHelperText>
+                          {errors.diagnosisType}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+                  </div>
+                  <div className="w-full md:flex-1">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="jobTitle"
+                      name="jobTitle"
+                      label="Job Title *"
+                      variant="standard"
+                      fullWidth
+                      value={formData.jobTitle}
+                      onChange={handleChange}
+                      error={!!errors.jobTitle}
+                      helperText={errors.jobTitle}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                </div>
+
+                {formData.diagnosisType === "other" && (
+                  <div>
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <TextField
+                      id="otherDiagnosis"
+                      name="otherDiagnosis"
+                      label="Please specify your type diagnosis *"
+                      variant="standard"
+                      fullWidth
+                      value={formData.otherDiagnosis}
+                      onChange={handleChange}
+                      error={!!errors.otherDiagnosis}
+                      helperText={errors.otherDiagnosis}
+                      sx={textFieldStyle}
+                    />
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  {/* <div className="flex items-start gap-4 font-['Helvetica']">
+                                                                  <input
+                                                                      type="checkbox"
+                                                                      name="settlement"
+                                                                      checked={formData.settlement}
+                                                                      onChange={handleChange}
+                                                                      className="mt-1"
+                                                                  />
+                                                                  <div className="text-xs sm:text-sm">
+                                                                      I would be needing help to file a settlement.
+                                                                  </div>
+                                                              </div> */}
+                  {errors.settlement && (
+                    <div className="text-red-500 text-sm">
+                      {errors.settlement}
+                    </div>
+                  )}
+                  <div className="flex items-start gap-4">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <input
+                      type="checkbox"
+                      name="privacyPolicy"
+                      checked={formData.privacyPolicy}
+                      onChange={handleChange}
+                      className="mt-1"
+                    />
+                    <div className="text-xs sm:text-sm font-['Helvetica'] ">
+                      <span
+                        className="block"
+                        data-tf-element-role="consent-opt-in"
+                      >
+                        I agree to the{" "}
+                        <a
+                          href="/PrivacyPolicy"
+                          className="underline hover:text-blue-200"
+                        >
+                          privacy policy
+                        </a>{" "}
+                        and{" "}
+                        <a
+                          href="/Disclaimer"
+                          className="underline hover:text-blue-200"
+                        >
+                          disclaimer
+                        </a>
+                        &nbsp; and give my express written consent,
+                        affiliates and/or lawyer to contact you at the
+                        number provided above, even if this number is a
+                        wireless number or if I am presently listed on a Do
+                        Not Call list. I understand that I may be contacted
+                        by telephone, email, text message or mail regarding
+                        case options and that I may be called using
+                        automatic dialing equipment. Message and data rates
+                        may apply. My consent does not require purchase.
+                        This is Legal advertising.
+                      </span>
+                      <span> </span>
+                    </div>
+                  </div>
+                  {errors.privacyPolicy && (
+                    <div className="text-red-500 text-sm">
+                      {errors.privacyPolicy}
+                    </div>
+                  )}
+
+                  <div className="flex items-start gap-4 font-['Helvetica']">
+                    <input
+                      type="hidden"
+                      id="xxTrustedFormCertUrl"
+                      name="xxTrustedFormCertUrl"
+                    />
+
+                    <input
+                      type="checkbox"
+                      name="humanVerification"
+                      checked={formData.humanVerification}
+                      onChange={handleChange}
+                      data-tf-element-role="consent-opt-in"
+                      className="mt-1"
+                    />
+                    <div className="text-xs sm:text-sm">
+                      Please check this box to verify you're a person.
+                    </div>
+                  </div>
+                  {errors.humanVerification && (
+                    <div className="text-red-500 text-sm">
+                      {errors.humanVerification}
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-left sm:text-left">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    data-tf-element-role="consent-opt-in"
+                    className={`rounded-[10px] bg-[#4b2c5e] text-[#f8f2e9] px-8 sm:px-12 py-3 sm:py-4 font-bold transition-colors text-sm sm:text-base md:text-lg flex items-center justify-center gap-2 ${isSubmitting
+                        ? "opacity-70 cursor-not-allowed"
+                        : "hover:bg-[#3a2249]"
+                      }`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <CircularProgress size={20} color="inherit" />
+                        Submitting...
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -427,81 +1011,367 @@ const Hometwo = () => {
             <em>Your journey to justice starts here.</em>
           </p>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="">
-            <TextField
-              id="firstName-mobile"
-              name="firstName"
-              label="First Name"
-              variant="standard"
-              fullWidth
-              value={formData.firstName}
-              onChange={handleChange}
-              error={!!errors.firstName}
-              helperText={errors.firstName}
-              sx={{
-                ...textFieldStyle,
-                marginBottom: '24px'
-              }}
-            />
+          <form
+            onSubmit={handleSubmit}
+            id="lead-form"
+            className="space-y-6"
+            data-tf-element-role="offer"
+          >
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <div className="w-full md:flex-1">
+                {/* Hidden TrustedForm field (separate from firstName) */}
 
-            <TextField
-              id="lastName-mobile"
-              name="lastName"
-              label="Last Name"
-              variant="standard"
-              fullWidth
-              value={formData.lastName}
-              onChange={handleChange}
-              error={!!errors.lastName}
-              helperText={errors.lastName}
-              sx={{
-                ...textFieldStyle,
-                marginBottom: '24px'
-              }}
-            />
-
-            <TextField
-              id="phoneNumber-mobile"
-              name="phoneNumber"
-              label="Phone Number"
-              variant="standard"
-              fullWidth
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              error={!!errors.phoneNumber}
-              // helperText={errors.phoneNumber || "Format: +1 561-555-7689"}
-              placeholder="+1 XXX-XXX-XXXX"
-              sx={{
-                ...textFieldStyle,
-                marginBottom: '24px'
-              }}
-            />
-
-            <TextField
-              id="emailId-mobile"
-              name="emailId"
-              label="Email ID"
-              variant="standard"
-              fullWidth
-              value={formData.emailId}
-              onChange={handleChange}
-              error={!!errors.emailId}
-              helperText={errors.emailId}
-              sx={textFieldStyle}
-            />
-            <div className="space-y-4 mt-5 text-left">
-              <div className="flex items-start gap-4 font-['Helvetica']">
                 <input
-                  type="checkbox"
-                  name="settlement"
-                  checked={formData.settlement}
-                  onChange={handleChange}
-                  className="mt-1"
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                  value={certId}
                 />
-                <div className="text-xs sm:text-sm">I would be needing help to file a settlement.</div>
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertToken"
+                  name="xxTrustedFormCertToken"
+                  value={tokenUrl}
+                />
+                <input
+                  type="hidden"
+                  id="xxTrustedFormPingUrl"
+                  name="xxTrustedFormPingUrl"
+                  value={pingUrl}
+                />
+
+                {/* First Name TextField (now clean) */}
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  label="First Name *"
+                  variant="standard"
+                  fullWidth
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  error={!!errors.firstName}
+                  helperText={errors.firstName}
+                  sx={textFieldStyle}
+                />
               </div>
-              {errors.settlement && <div className="text-red-500 text-sm">{errors.settlement}</div>}
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="lastName"
+                  name="lastName"
+                  label="Last Name *"
+                  variant="standard"
+                  type="text"
+                  fullWidth
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  error={!!errors.lastName}
+                  helperText={errors.lastName}
+                  sx={textFieldStyle}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  label="Phone Number *"
+                  variant="standard"
+                  type="number"
+                  inputProps={{
+                    maxLength: 10, // Restricts input to 10 characters
+                    pattern: "\\d{10}", // Regex for exactly 10 digits
+                    inputMode: "numeric", // Shows numeric keyboard on mobile
+                  }}
+                  fullWidth
+                  value={formatPhoneNumber(formData.phoneNumber)}
+                  onChange={handleChange}
+                  error={!!errors.phoneNumber}
+                  helperText={errors.phoneNumber}
+                  placeholder="+1 XXX-XXX-XXXX"
+                  sx={textFieldStyle}
+                />
+              </div>
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="emailId"
+                  name="emailId"
+                  label="Email ID *"
+                  variant="standard"
+                  type="email"
+                  fullWidth
+                  value={formData.emailId}
+                  onChange={handleChange}
+                  error={!!errors.emailId}
+                  helperText={errors.emailId}
+                  sx={textFieldStyle}
+                />
+              </div>
+            </div>
+
+            {/* <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                                                              <div className="w-full md:flex-1">
+                                                                  <FormControl
+                                                                      fullWidth
+                                                                      error={!!errors.state}
+                                                                      variant="standard"
+                                                                  >
+                                                                      <InputLabel
+                                                                          id="state-label"
+                                                                          sx={{
+                                                                              color: "#4b2c5e",
+                                                                              fontSize: "20px",
+                                                                              fontFamily: "Helvetica",
+                                                                              fontWeight: "bold",
+                                                                              "&.Mui-focused": {
+                                                                                  color: "#4b2c5e",
+                                                                              },
+                                                                          }}
+                                                                      >
+                                                                          State *
+                                                                      </InputLabel>
+                                                                      <Select
+                                                                          labelId="state-label"
+                                                                          id="state"
+                                                                          name="state"
+                                                                          value={formData.state}
+                                                                          label="State *"
+                                                                          onChange={handleChange}
+                                                                          sx={selectFieldStyle}
+                                                                          MenuProps={{
+                                                                              PaperProps: {
+                                                                                  sx: {
+                                                                                      "& .MuiMenuItem-root": menuItemStyle,
+                                                                                  },
+                                                                              },
+                                                                          }}
+                                                                      >
+                                                                          <MenuItem value="">Select a state</MenuItem>
+                                                                          {usStates.map((state) => (
+                                                                              <MenuItem key={state.value} value={state.value}>
+                                                                                  {state.label}
+                                                                              </MenuItem>
+                                                                          ))}
+                                                                      </Select>
+                                                                      {errors.state && (
+                                                                          <FormHelperText>{errors.state}</FormHelperText>
+                                                                      )}
+                                                                  </FormControl>
+                                                              </div>
+                                                          </div> */}
+
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  label="Date of Birth *"
+                  type="date"
+                  variant="standard"
+                  fullWidth
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  error={!!errors.dateOfBirth}
+                  helperText={errors.dateOfBirth}
+                  InputLabelProps={{ shrink: true }}
+                  inputProps={{
+                    max: new Date(
+                      new Date().setFullYear(
+                        new Date().getFullYear() - 18
+                      )
+                    )
+                      .toISOString()
+                      .split("T")[0], // Restricts dates to 18+ only
+                  }}
+                  sx={textFieldStyle}
+                />
+              </div>
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="dateOfDiagnosis"
+                  name="dateOfDiagnosis"
+                  label="Date of Diagnosis *"
+                  type="date"
+                  variant="standard"
+                  fullWidth
+                  value={formData.dateOfDiagnosis}
+                  onChange={handleChange}
+                  error={!!errors.dateOfDiagnosis}
+                  helperText={
+                    errors.dateOfDiagnosis ||
+                    "Future dates are not allowed"
+                  }
+                  InputLabelProps={{ shrink: true }}
+                  inputProps={{
+                    max: new Date().toISOString().split("T")[0], // Blocks dates after today
+                  }}
+                  sx={{
+                    ...textFieldStyle,
+                    "& .MuiInput-input": {
+                      cursor: "pointer", // Shows it's clickable
+                    },
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+              <div className="w-full md:flex-1">
+                <FormControl
+                  fullWidth
+                  error={!!errors.diagnosisType}
+                  variant="standard"
+                >
+                  <input
+                    type="hidden"
+                    id="xxTrustedFormCertUrl"
+                    name="xxTrustedFormCertUrl"
+                  />
+
+                  <InputLabel
+                    id="diagnosis-type-label"
+                    sx={{
+                      color: "#4b2c5e",
+                      fontSize: "20px",
+                      fontFamily: "Helvetica",
+                      "&.Mui-focused": {
+                        color: "#4b2c5e",
+                      },
+                    }}
+                  >
+                    Type of Diagnosis *
+                  </InputLabel>
+                  <Select
+                    labelId="diagnosis-type-label"
+                    id="diagnosisType"
+                    name="diagnosisType"
+                    value={formData.diagnosisType}
+                    label="Type of Diagnosis *"
+                    onChange={handleChange}
+                    sx={selectFieldStyle}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          "& .MuiMenuItem-root": menuItemStyle,
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="">Select diagnosis type</MenuItem>
+                    <MenuItem value="mesothelioma">
+                      Mesothelioma
+                    </MenuItem>
+                    <MenuItem value="lung_cancer">Lung Cancer</MenuItem>
+                    <MenuItem value="other">Others</MenuItem>
+                  </Select>
+                  {errors.diagnosisType && (
+                    <FormHelperText>
+                      {errors.diagnosisType}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </div>
+              <div className="w-full md:flex-1">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="jobTitle"
+                  name="jobTitle"
+                  label="Job Title *"
+                  variant="standard"
+                  fullWidth
+                  value={formData.jobTitle}
+                  onChange={handleChange}
+                  error={!!errors.jobTitle}
+                  helperText={errors.jobTitle}
+                  sx={textFieldStyle}
+                />
+              </div>
+            </div>
+
+            {formData.diagnosisType === "other" && (
+              <div>
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
+                <TextField
+                  id="otherDiagnosis"
+                  name="otherDiagnosis"
+                  label="Please specify your type diagnosis *"
+                  variant="standard"
+                  fullWidth
+                  value={formData.otherDiagnosis}
+                  onChange={handleChange}
+                  error={!!errors.otherDiagnosis}
+                  helperText={errors.otherDiagnosis}
+                  sx={textFieldStyle}
+                />
+              </div>
+            )}
+
+            <div className="space-y-4">
+              {/* <div className="flex items-start gap-4 font-['Helvetica']">
+                                                                  <input
+                                                                      type="checkbox"
+                                                                      name="settlement"
+                                                                      checked={formData.settlement}
+                                                                      onChange={handleChange}
+                                                                      className="mt-1"
+                                                                  />
+                                                                  <div className="text-xs sm:text-sm">
+                                                                      I would be needing help to file a settlement.
+                                                                  </div>
+                                                              </div> */}
+              {errors.settlement && (
+                <div className="text-red-500 text-sm">
+                  {errors.settlement}
+                </div>
+              )}
               <div className="flex items-start gap-4">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
                 <input
                   type="checkbox"
                   name="privacyPolicy"
@@ -510,42 +1380,90 @@ const Hometwo = () => {
                   className="mt-1"
                 />
                 <div className="text-xs sm:text-sm font-['Helvetica'] ">
-                  <span className="block">
-                    I agree to the{' '}
-                    <a href="/PrivacyPolicy" className="underline hover:text-blue-200">
+                  <span
+                    className="block"
+                    data-tf-element-role="consent-opt-in"
+                  >
+                    I agree to the{" "}
+                    <a
+                      href="/PrivacyPolicy"
+                      className="underline hover:text-blue-200"
+                    >
                       privacy policy
-                    </a>{' '}
-                    and{' '}
-                    <a href="/Disclaimer" className="underline hover:text-blue-200">
+                    </a>{" "}
+                    and{" "}
+                    <a
+                      href="/Disclaimer"
+                      className="underline hover:text-blue-200"
+                    >
                       disclaimer
                     </a>
-                    &nbsp; and give my express written consent, affiliates and/or lawyer to contact you at the number provided above, even if this number is a wireless number or if I am presently listed on a Do Not Call list. I understand that I may be contacted by telephone, email, text message or mail regarding case options and that I may be called using automatic dialing equipment. Message and data rates may apply. My consent does not require purchase. This is Legal advertising.
+                    &nbsp; and give my express written consent,
+                    affiliates and/or lawyer to contact you at the
+                    number provided above, even if this number is a
+                    wireless number or if I am presently listed on a Do
+                    Not Call list. I understand that I may be contacted
+                    by telephone, email, text message or mail regarding
+                    case options and that I may be called using
+                    automatic dialing equipment. Message and data rates
+                    may apply. My consent does not require purchase.
+                    This is Legal advertising.
                   </span>
                   <span> </span>
                 </div>
               </div>
-              {errors.privacyPolicy && <div className="text-red-500 text-sm">{errors.privacyPolicy}</div>}
+              {errors.privacyPolicy && (
+                <div className="text-red-500 text-sm">
+                  {errors.privacyPolicy}
+                </div>
+              )}
 
               <div className="flex items-start gap-4 font-['Helvetica']">
+                <input
+                  type="hidden"
+                  id="xxTrustedFormCertUrl"
+                  name="xxTrustedFormCertUrl"
+                />
+
                 <input
                   type="checkbox"
                   name="humanVerification"
                   checked={formData.humanVerification}
                   onChange={handleChange}
+                  data-tf-element-role="consent-opt-in"
                   className="mt-1"
                 />
-                <div className="text-xs sm:text-sm">Please check this box to verify you're a person.</div>
+                <div className="text-xs sm:text-sm">
+                  Please check this box to verify you're a person.
+                </div>
               </div>
-              {errors.humanVerification && <div className="text-red-500 text-sm">{errors.humanVerification}</div>}
+              {errors.humanVerification && (
+                <div className="text-red-500 text-sm">
+                  {errors.humanVerification}
+                </div>
+              )}
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-4 mt-8 rounded-[20px] bg-[#2E4A7D] text-[#F8F2E9] font-helvetica text-lg font-bold hover:bg-[#374A67]"
-            >
-              {isSubmitting ? 'Submitting...' : 'Begin Here'}
-            </button>
+            <div className="text-left sm:text-left">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                data-tf-element-role="consent-opt-in"
+                className={`rounded-[10px] bg-[#4b2c5e] text-[#f8f2e9] px-8 sm:px-12 py-3 sm:py-4 font-bold transition-colors text-sm sm:text-base md:text-lg flex items-center justify-center gap-2 ${isSubmitting
+                    ? "opacity-70 cursor-not-allowed"
+                    : "hover:bg-[#3a2249]"
+                  }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <CircularProgress size={20} color="inherit" />
+                    Submitting...
+                  </>
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            </div>
           </form>
         </div>
       </div>

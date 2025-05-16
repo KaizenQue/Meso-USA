@@ -10,7 +10,7 @@ import logo from '../../assets/Meso logo-01 1.png'
 const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = "(888) 212-8149";
+  const phoneNumber = "(833) 588-0606";
  
   useEffect(() => {
     // Add padding to body to prevent content from hiding behind fixed navbar
@@ -193,7 +193,7 @@ const Navbar = () => {
               }
               onClick={closeMenu}
             >
-              About us
+              About Us
             </NavLink>
             
             <div
@@ -203,7 +203,7 @@ const Navbar = () => {
                 navigate('/ClaimForm');
               }}
             >
-              <span className="font-helvetica font-bold text-[18px] text-[#F5E7DA]">Claim Form</span>
+              <span className="font-helvetica font-bold text-[18px] text-[#F5E7DA]">File Claim</span>
             </div>
             
             {/* Phone number in drawer for easy access */}
@@ -266,7 +266,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                About us
+                About Us
               </NavLink>
             </div>
           </div>
@@ -292,7 +292,7 @@ const Navbar = () => {
               className="bg-[#4B2C5E] rounded-[60px] p-[10px] px-[20px] cursor-pointer ml-[25px]"
               onClick={() => navigate('/ClaimForm')}
             >
-              <span className="font-helvetica font-bold text-[20px] text-[#F5E7DA]">Claim Form</span>
+              <span className="font-helvetica font-bold text-[20px] text-[#F5E7DA]">File Claim</span>
             </div>
           </div>
         </div>
