@@ -49,13 +49,13 @@ function MesoOne() {
         <div className="hidden lg:flex flex-col lg:flex-row items-center justify-between py-12">
           {/* Left column - text content */}
           <div className="w-full lg:w-[69%]"> {/* Added lg:pr-16 for right padding */}
-            <h1 className="text-[#4B2C5E] font-georgia text-[80px] italic font-normal leading-tight">
+            <h1 className="text-[#4B2C5E] font-georgia text-[80px] italic font-normal  leading-tight">
             Compassion in every moment, support when you need it most!
             </h1>
             {/* <p className="text-xl text-[#4B2C5E] mb-8 mt-6 leading-relaxed">
               We connect individuals and families impacted by mesothelioma or asbestos exposure with the <b>nation's most trusted legal services.</b> ensuring you secure the <b>justice and support you rightfully deserve</b> .
             </p> */}
-            <div className="w-[799px] h-[238px] flex justify-end ml-auto ml-[-15%]">
+            <div className="w-[799px] h-[238px] flex justify-end ml-auto ">
               <div>
                 <p className="text-[#4B2C5E] font-georgia text-[32px] italic font-normal leading-normal tracking-[0.32px] absolute z-index mt-[2%] ml-[22%] underline">
                   We're Here for You!

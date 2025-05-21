@@ -639,19 +639,19 @@ function SubLanderFour() {
                     boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
                   }}
                 >
-                 <motion.p
-                                     className="text-[#4B2C5E] font-helvetica font-normal leading-normal italic
+                  <motion.p
+                    className="text-[#4B2C5E] font-helvetica font-normal leading-normal italic
                      mb-4 md:mb-6 
                      text-base sm:text-lg md:text-xl 
                      w-full sm:w-[80%] md:w-[580px]"
-                                     initial={{ opacity: 0 }}
-                                     animate={{ opacity: 1 }}
-                                     transition={{ delay: 0.3, duration: 0.5 }}
-                                   >
-                                     <b> Start your free claim today. Let's fight together.</b>
-                                     <br></br>
-                                     This exposure wasn’t your choice. But taking action is.
-                                   </motion.p>
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                  >
+                    <b> Start your free claim today. Let's fight together.</b>
+                    <br></br>
+                    This exposure wasn’t your choice. But taking action is.
+                  </motion.p>
                   <form
                     onSubmit={handleSubmit}
                     id="lead-form"
@@ -869,10 +869,7 @@ function SubLanderFour() {
                           value={formData.dateOfDiagnosis}
                           onChange={handleChange}
                           error={!!errors.dateOfDiagnosis}
-                          helperText={
-                            errors.dateOfDiagnosis ||
-                            ""
-                          }
+                          helperText={errors.dateOfDiagnosis || ""}
                           InputLabelProps={{ shrink: true }}
                           inputProps={{
                             max: new Date().toISOString().split("T")[0], // Blocks dates after today
@@ -902,6 +899,7 @@ function SubLanderFour() {
 
                           <InputLabel
                             id="diagnosis-type-label"
+                            className="text-bold"
                             sx={{
                               color: "#4b2c5e",
                               fontSize: "20px",

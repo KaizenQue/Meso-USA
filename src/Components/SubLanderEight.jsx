@@ -565,7 +565,7 @@ function SubLanderEight() {
                   <b className="text-[#2E4A7D]">
                     Whether you worked in automotive, construction, or general
                     labor, your exposure may have occurred during everyday
-                    tasks. If you worked as a steamfitter, you may have come
+                    tasks. If you worked as a laborer, you may have come
                     into contact with dangerous asbestos found in:
                   </b>
                 </motion.p>

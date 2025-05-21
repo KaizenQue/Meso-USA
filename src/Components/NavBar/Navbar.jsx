@@ -1,21 +1,57 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { IoClose } from "react-icons/io5";
-import Drawer from '../../assets/drawer.png'
-import CallIcon from '../../assets/phoneIcon.png'
-import logo from '../../assets/Meso logo-01 1.png'
- 
+import Drawer from '../../assets/drawer.png';
+import CallIcon from '../../assets/phoneIcon.png';
+import logo from '../../assets/Meso logo-01 1.png';
+
+const useDialicsNumber = (defaultNumber = "(833) 588-0606") => {
+  const [phoneNumber, setPhoneNumber] = useState(defaultNumber);
+
+  const getCleanNumber = useCallback((num) => {
+    return num.replace(/[^0-9+]/g, '');
+  }, []);
+
+  useEffect(() => {
+    const targetNode = document.querySelector('[data-dialics="true"]');
+
+    if (!targetNode) {
+      console.warn("Dialics target element not found.");
+      return;
+    }
+
+    const observerCallback = (mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'characterData' || mutation.type === 'childList') {
+          const currentNumber = targetNode.textContent.trim();
+          if (currentNumber && currentNumber !== phoneNumber) {
+            setPhoneNumber(currentNumber);
+          }
+        }
+      }
+    };
+
+    const observer = new MutationObserver(observerCallback);
+    observer.observe(targetNode, {
+      characterData: true,
+      childList: true,
+      subtree: true
+    });
+
+    return () => observer.disconnect();
+  }, [phoneNumber]);
+
+  return { phoneNumber, getCleanNumber };
+};
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = "(833) 588-0606";
+  const { phoneNumber, getCleanNumber } = useDialicsNumber();
  
   useEffect(() => {
-    // Add padding to body to prevent content from hiding behind fixed navbar
     document.body.classList.add('pt-[73px]', 'md:pt-[73px]');
-    
     return () => {
       document.body.classList.remove('pt-[73px]', 'md:pt-[73px]');
     };
@@ -23,16 +59,13 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    if (!isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+    document.body.style.overflow = isOpen ? 'auto' : 'hidden';
   };
  
-  const handlePhoneClick = () => {
-    window.location.href = `tel:${phoneNumber}`;
-  };
+  const handlePhoneClick = useCallback(() => {
+    const cleanNumber = getCleanNumber(phoneNumber);
+    window.location.href = `tel:${cleanNumber}`;
+  }, [phoneNumber, getCleanNumber]);
  
   const closeMenu = () => {
     setIsOpen(false);
@@ -41,7 +74,6 @@ const Navbar = () => {
  
   return (
     <>
-      {/* Add keyframe animations since they can't be done with Tailwind directly */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; }
@@ -79,10 +111,10 @@ const Navbar = () => {
         }
       `}</style>
       
-      {/* Mobile Navbar - Hidden when drawer is open */}
+      {/* Mobile Navbar */}
       <div className={`md:hidden fixed top-0 left-0 w-full z-[1000] bg-[#FAF3EC] transition-opacity duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <div className="flex items-center justify-between p-[15px] relative z-[1001]">
-          <div className=" p-[8px] px-[15px] rounded-[4px]">
+          <div className="p-[8px] px-[15px] rounded-[4px]">
             <a href="/"> 
               <img
                 src={logo}
@@ -119,19 +151,16 @@ const Navbar = () => {
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        {/* Backdrop */}
         <div 
           className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] backdrop-blur-[5px]" 
           onClick={closeMenu}
         ></div>
         
-        {/* Slide-in Panel */}
         <div 
           className={`fixed top-0 w-full h-screen bg-[rgba(255,255,255,0.97)] transition-all duration-300 ease-in-out z-[1003] ${
             isOpen ? 'right-0' : 'right-[-100%]'
           } ${isOpen ? 'menu-open' : ''}`}
         >
-          {/* Logo in drawer for better branding */}
           <div className="absolute top-[20px] left-[20px] bg-white p-[8px] px-[15px] rounded-[4px] shadow-[0_2px_5px_rgba(0,0,0,0.1)]">
             <a href="/" onClick={closeMenu}> 
               <img
@@ -142,8 +171,6 @@ const Navbar = () => {
             </a>
           </div>
           
-          
-          {/* Close button inside drawer with improved positioning */}
           <button
             onClick={closeMenu}
             className="absolute top-[20px] right-[20px] w-[45px] h-[45px] flex items-center justify-center bg-[#4B2C5E] rounded-full border-none cursor-pointer p-0 z-[1004] shadow-md"
@@ -206,7 +233,6 @@ const Navbar = () => {
               <span className="font-helvetica font-bold text-[18px] text-[#F5E7DA]">File Claim</span>
             </div>
             
-            {/* Phone number in drawer for easy access */}
             <div className="flex items-center gap-[10px] mt-[5vh] claim-button-animation">
               <div
                 className="w-[40px] h-[40px] rounded-full border-2 border-[#4B2C5E] flex items-center justify-center cursor-pointer"
@@ -216,7 +242,12 @@ const Navbar = () => {
                   <img src={CallIcon} alt="Phone Icon" className="absolute top-0 left-0 w-full h-full" />
                 </div>
               </div>
-              <p className="font-helvetica font-bold text-[20px] text-[#4B2C5E] m-0">{phoneNumber}</p>
+              <p 
+                data-dialics="true"
+                className="font-helvetica font-bold text-[20px] text-[#4B2C5E] m-0"
+              >
+                {phoneNumber}
+              </p>
             </div>
           </div>
         </div>
@@ -285,7 +316,12 @@ const Navbar = () => {
               </div>
               <div className="text-left">
                 <p className="font-helvetica font-normal text-[16px] text-[#4B2C5E] m-0 mb-[5px]">Call Us For Help</p>
-                <p className="font-helvetica font-bold text-[24px] text-[#4B2C5E] m-0">{phoneNumber}</p>
+                <p 
+                  data-dialics="true"
+                  className="font-helvetica font-bold text-[24px] text-[#4B2C5E] m-0"
+                >
+                  {phoneNumber}
+                </p>
               </div>
             </div>
             <div
@@ -302,4 +338,3 @@ const Navbar = () => {
 };
  
 export default Navbar;
- 

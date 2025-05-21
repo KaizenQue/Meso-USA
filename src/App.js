@@ -48,6 +48,7 @@ import SubLanderFive from "./Components/SubLanderFive"
 import SubLanderSix from "./Components/SubLanderSix"
 import SubLanderSeven from "./Components/SubLanderSeven"
 import SubLanderEight from './Components/SubLanderEight.jsx';
+import FeatureScrollSection from './Components/NewMesoTemplates/FeatureScrollSection';
 
 function App() {
   // useEffect(() => {
@@ -279,6 +280,10 @@ function App() {
     {
       path: '/mesothelioma-claims-construction-industry',
       element: <MesoConstructionLander />,
+    },
+    {
+      path: '/FeatureScrollSection',
+      element: <FeatureScrollSection />,
     },
   ]);
 
