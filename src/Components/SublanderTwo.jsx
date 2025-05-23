@@ -12,6 +12,7 @@ import AutoMobileVideo from "../assets/video.mp4";
 import NavbarSubDomains from "../Components/NavBarSubDomains/NavBarSubDomains/NavbarSubDomains";
 import Group from "../../src/assets/Group 35645.png";
 import Vector from "../../src/assets/PIPE-FITTER.png";
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 import {
   Button,
   TextField,
@@ -37,6 +38,8 @@ import {
 import SuccessDialog from "./SuccessDialog";
 
 function SubLanderTwo() {
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
+
   const textFieldStyle = {
     "& .MuiInputLabel-root": {
       color: "#4b2c5e",
@@ -575,7 +578,7 @@ function SubLanderTwo() {
                 </motion.div>
 
                 <motion.div
-                  className="mb-4 md:mb-8 space-y-2 md:space-y-4 mt-10"
+                  className="mb-8 space-y-4"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
@@ -585,26 +588,22 @@ function SubLanderTwo() {
                     "Boilers, pumps, and flange joints",
                     "Shipyards, power plants, refineries, and construction sites across the country",
                   ].map((text, index) => (
-                    <Box
-                      key={index}
-                      className="flex items-start gap-2 md:gap-3"
-                    >
-                      <Box className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-primary/10 text-primary text-[#6b6b6b] md:-mt-1">
+                    <Box key={index} className="flex items-center gap-3">
+                      <Box className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary text-[#6b6b6b] ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
+                          width="20"
+                          height="20"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="#4b2c5e"
                           strokeWidth="2"
                           strokeLinecap="round"
-                          className="md:w-5 md:h-5"
                         >
                           <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
                         </svg>
                       </Box>
-                      <Typography className="text-[#161616] font-georgia leading-tight font-bold text-sm md:text-base flex-1">
+                      <Typography className="text-[#161616] font-georgia leading-tight font-bold">
                         {text}
                       </Typography>
                     </Box>
@@ -616,14 +615,15 @@ function SubLanderTwo() {
             {/* Right Side - Form */}
             <Grid item xs={12} md={6}>
               <motion.h1
-                className="text-[#2E4A7D] font-georgia italic font-normal leading-tight text-left mx-auto px-4 xl:mt-32 lg:w-[1600px] 2xl:mt-32 2xl:mb-16"
+                className="text-[#2E4A7D] font-georgia italic font-normal leading-tight text-left mt-16 ml-5"
                 style={{
-                  fontSize: "clamp(1.5rem, 4vw, 2.875rem)",
-                  width: "100%",
-                  maxWidth: "948px",
+                  fontSize: "clamp(1.75rem, 5vw, 2.875rem)",
+                  width: "clamp(400px, 50vw, 748px)",
                   marginBottom: "0",
-                  marginTop: "clamp(2rem, 8vw, 5rem)", // Responsive top margin
                 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
               >
                 Justice for Pipefitters Diagnosed with Mesothelioma
               </motion.h1>
@@ -632,23 +632,11 @@ function SubLanderTwo() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="h-full flex items-center justify-center w-full "
+                className="h-full flex items-center justify-center -mt-16"
               >
-                {/* <Paper
-                  elevation={3}
-                  className="w-full max-w-2xl lg:-mt-16 2xl:-mt-96 "
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.7)",
-                    backdropFilter: "blur(10px)",
-                    borderRadius: "20px",
-                    padding: "2rem",
-                    border: "1px solid rgba(255, 255, 255, 0.2)",
-                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-                  }}
-                > */}
                 <Paper
                   elevation={3}
-                  className="w-full max-w-2xl "
+                  className="w-full max-w-2xl p-8"
                   sx={{
                     backgroundColor: "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(10px)",
@@ -656,21 +644,6 @@ function SubLanderTwo() {
                     padding: "2rem",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
                     boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-                    marginTop: {
-                      xs: "-2rem", // Mobile (0-639px)
-                      sm: "-3rem", // 640px+
-                      md: "-4rem", // 768px+
-                      lg: "-6rem", // 1024px+
-                      xl: "-8rem", // 1280px+
-                      "2xl": "-10rem", // 1536px+
-                      "3xl": "-12rem", // 4K screens (1920px+)
-                    },
-                    "@media (min-width: 2560px)": {
-                      marginTop: "-14rem", // QHD/2K screens
-                    },
-                    "@media (min-width: 3840px)": {
-                      marginTop: "-64rem", // 4K UHD screens
-                    },
                   }}
                 >
                   <motion.p
@@ -682,9 +655,9 @@ function SubLanderTwo() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                   >
-                    <b> Start your free claim today. Let's fight together.</b>
-                    <br></br>
-                    This exposure wasn’t your choice. But taking action is.
+                    This exposure wasn't your choice. But taking action is.
+                    Start your free claim today.
+                    <b> Let's fight together.</b>
                   </motion.p>
                   <form
                     onSubmit={handleSubmit}
@@ -903,7 +876,10 @@ function SubLanderTwo() {
                           value={formData.dateOfDiagnosis}
                           onChange={handleChange}
                           error={!!errors.dateOfDiagnosis}
-                          helperText={errors.dateOfDiagnosis || ""}
+                          helperText={
+                            errors.dateOfDiagnosis ||
+                            ""
+                          }
                           InputLabelProps={{ shrink: true }}
                           inputProps={{
                             max: new Date().toISOString().split("T")[0], // Blocks dates after today

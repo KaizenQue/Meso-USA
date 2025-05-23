@@ -13,25 +13,26 @@ const HomeEight = () => {
     };
     return (
         <div>
-            <div className="w-full relative bg-[#faf3ec] h-screen flex items-center justify-center overflow-hidden text-left text-[20px] text-[#4b2c5e] font-helvetica hidden md:block">
-                <div className="w-[1207px] relative h-[645px] text-[96px] font-georgia ml-[100px] mt-[10]"> {/* Added negative margin-left */}
-                    <div className="relative w-[1014px] h-[520px] mx-auto mt-32">
+
+            <div className="w-full relative bg-[#faf3ec] h-screen items-center justify-center  overflow-hidden text-left text-[20px] text-[#4b2c5e] font-helvetica hidden md:block">
+                <div className="w-[1207px] relative h-[645px] text-[96px] font-georgia ml-[100px] mt-[10] 2xl:ml-[33%] 2xl:mt-[10%] max-w-[105rem]"> {/* Added negative margin-left */}
+                    <div className="relative w-[1014px] h-[520px] mx-auto mt-32 ">
                         <div className="relative w-[1135px] h-[200px]">
-                            <img className="absolute left-[-120px] top-[calc(55%-160px)] w-[255.5px] h-[320px]" alt="" src={Img1} />
+                            <img className="absolute left-[-120px] top-[calc(55%-160px)] w-[255.5px] h-[320px] 2xl:w-[500px] 2xl:h-[700px] 2xl:ml-[-20%]" alt="" src={Img1} />
                             <i className="relative inline-block w-full text-center font-['Georgia'] text-[96px] left-[80px]"> {/* Reduced left value */}
                                 <span>{`You've Spent a Lifetime `}</span>
                                 <span className="text-[rgba(75,44,94,0.65)] font-['Georgia']">Building a Legacy</span>
                             </i>
                         </div>
-                        <div className="relative left-[-80px] top-[100px] mt-8 w-[652px] h-[342px] text-[20px] font-helvetica mx-auto"> {/* Reduced left value */}
-                            <div className="relative rounded-[20px] bg-white w-[523px] h-[228px] overflow-hidden ml-[200px]"> {/* Reduced margin-left */}
+                        <div className="relative left-[-80px] top-[100px] mt-8 w-[652px] h-[342px]  text-[20px] font-helvetica mx-auto"> {/* Reduced left value */}
+                            <div className="relative rounded-[20px] bg-white w-[523px] h-[228px] overflow-hidden ml-[200px] 2xl:ml-[40%]"> {/* Reduced margin-left */}
                                 <i className="absolute top-[24px] left-[100px] text-[32px] underline tracking-[0.01em] font-['Georgia']">{`Let Us Help to Protect It `}</i> {/* Reduced left value */}
-                                <div className="absolute top-[76px] left-[100px] font-['Helvetica']">Let's take the next step together </div> {/* Reduced left value */}
+                                <div className="absolute top-[76px] left-[100px] font-helvetica">Let's take the next step together </div> {/* Reduced left value */}
                                 <div className="absolute top-[calc(50%+19px)] left-[100px] rounded-[20px] bg-[#4b2c5e] h-[71px] overflow-hidden flex flex-row items-center justify-center p-[24px] box-border text-[#f8f2e9]"> {/* Reduced left value */}
                                     <b className="relative" onClick={handleButtonClick}>Call Us Today</b>
                                 </div>
                             </div>
-                            <img className="absolute top-0 left-[60px] w-[220.6px] h-[242px] object-cover" alt="" src={Img2} /> {/* Reduced left value */}
+                            <img className="absolute top-0 left-[60px] w-[220.6px] h-[242px] object-cover 2xl:ml-[10%]" alt="" src={Img2} /> {/* Reduced left value */}
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@ const HomeEight = () => {
                             <i className="text-[20px] underline tracking-[0.01em] font-['Georgia'] block mb-4">
                                 {`Let Us Help to Protect It`}
                             </i>
-                            <div className="font-['Helvetica'] mb-6">Let's take the next step together</div>
+                            <div className="font-helvetica mb-6">Let's take the next step together</div>
                             <div className="rounded-[20px] bg-[#4b2c5e] h-[50px] flex items-center justify-center text-[#f8f2e9]">
                                 <b>Call Us Today</b>
                             </div>

@@ -256,109 +256,104 @@ function SubLanderEleven() {
 
   // Validate form before submission
   // Add this validation function at the top level of your component file
-  const validateName = (name) => {
-    // Allows letters, hyphens, apostrophes, and spaces (common in names)
-    // Minimum 2 characters, maximum 30
-    const nameRegex = /^[a-zA-Zà-üÀ-Ü'\- ]{2,30}$/;
-    return nameRegex.test(name.trim());
-  };
+const validateName = (name) => {
+  // Allows letters, hyphens, apostrophes, and spaces (common in names)
+  // Minimum 2 characters, maximum 30
+  const nameRegex = /^[a-zA-Zà-üÀ-Ü'\- ]{2,30}$/;
+  return nameRegex.test(name.trim());
+};
 
-  const validateForm = () => {
-    const newErrors = {};
-    const today = new Date();
+const validateForm = () => {
+  const newErrors = {};
+  const today = new Date();
+  
+  // Required field validation
+  const requiredFields = [
+    "firstName",
+    "lastName",
+    "phoneNumber",
+    "emailId",
+    "dateOfBirth",
+    "dateOfDiagnosis",
+    "diagnosisType",
+    "jobTitle",
+  ];
 
-    // Required field validation
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "phoneNumber",
-      "emailId",
-      "dateOfBirth",
-      "dateOfDiagnosis",
-      "diagnosisType",
-      "jobTitle",
-    ];
+  // First Name validation
+  if (!formData.firstName.trim()) {
+    newErrors.firstName = "First name is required";
+  } else if (!validateName(formData.firstName)) {
+    newErrors.firstName = "Please enter a valid first name (letters only, 2-30 characters)";
+  }
 
-    // First Name validation
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required";
-    } else if (!validateName(formData.firstName)) {
-      newErrors.firstName =
-        "Please enter a valid first name (letters only, 2-30 characters)";
+  // Last Name validation
+  if (!formData.lastName.trim()) {
+    newErrors.lastName = "Last name is required";
+  } else if (!validateName(formData.lastName)) {
+    newErrors.lastName = "Please enter a valid last name (letters only, 2-30 characters)";
+  }
+
+  // Check other required fields
+  requiredFields.forEach((field) => {
+    if (!formData[field] && !newErrors[field]) {
+      newErrors[field] = "This field is required";
     }
+  });
 
-    // Last Name validation
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    } else if (!validateName(formData.lastName)) {
-      newErrors.lastName =
-        "Please enter a valid last name (letters only, 2-30 characters)";
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (formData.emailId && !emailRegex.test(formData.emailId)) {
+    newErrors.emailId = "Please enter a valid email address";
+  }
+
+  // Phone number validation
+  if (formData.phoneNumber) {
+    const digitsOnly = formData.phoneNumber.replace(/\D/g, "");
+    if (digitsOnly.length !== 10) {
+      newErrors.phoneNumber = "Phone number must be 10 digits";
     }
+  }
 
-    // Check other required fields
-    requiredFields.forEach((field) => {
-      if (!formData[field] && !newErrors[field]) {
-        newErrors[field] = "This field is required";
-      }
-    });
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (formData.emailId && !emailRegex.test(formData.emailId)) {
-      newErrors.emailId = "Please enter a valid email address";
+  // Date of Birth validation (18+ years)
+  if (formData.dateOfBirth) {
+    const birthDate = new Date(formData.dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
-
-    // Phone number validation
-    if (formData.phoneNumber) {
-      const digitsOnly = formData.phoneNumber.replace(/\D/g, "");
-      if (digitsOnly.length !== 10) {
-        newErrors.phoneNumber = "Phone number must be 10 digits";
-      }
+    
+    if (age < 18) {
+      newErrors.dateOfBirth = "You must be at least 18 years old";
     }
+  }
 
-    // Date of Birth validation (18+ years)
-    if (formData.dateOfBirth) {
-      const birthDate = new Date(formData.dateOfBirth);
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-
-      if (
-        monthDiff < 0 ||
-        (monthDiff === 0 && today.getDate() < birthDate.getDate())
-      ) {
-        age--;
-      }
-
-      if (age < 18) {
-        newErrors.dateOfBirth = "You must be at least 18 years old";
-      }
+  // Date of Diagnosis validation (not in future)
+  if (formData.dateOfDiagnosis) {
+    const diagnosisDate = new Date(formData.dateOfDiagnosis);
+    if (diagnosisDate > today) {
+      newErrors.dateOfDiagnosis = "Diagnosis date cannot be in the future";
     }
+  }
 
-    // Date of Diagnosis validation (not in future)
-    if (formData.dateOfDiagnosis) {
-      const diagnosisDate = new Date(formData.dateOfDiagnosis);
-      if (diagnosisDate > today) {
-        newErrors.dateOfDiagnosis = "Diagnosis date cannot be in the future";
-      }
-    }
+  // Other diagnosis validation
+  if (formData.diagnosisType === "other" && !formData.otherDiagnosis) {
+    newErrors.otherDiagnosis = "Please specify your diagnosis";
+  }
 
-    // Other diagnosis validation
-    if (formData.diagnosisType === "other" && !formData.otherDiagnosis) {
-      newErrors.otherDiagnosis = "Please specify your diagnosis";
-    }
+  // Checkbox validations
+  if (!formData.privacyPolicy) {
+    newErrors.privacyPolicy = "You must agree to the privacy policy";
+  }
 
-    // Checkbox validations
-    if (!formData.privacyPolicy) {
-      newErrors.privacyPolicy = "You must agree to the privacy policy";
-    }
+  if (!formData.humanVerification) {
+    newErrors.humanVerification = "Please verify you are a person";
+  }
 
-    if (!formData.humanVerification) {
-      newErrors.humanVerification = "Please verify you are a person";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
   // Handle dialog close
   const handleCloseDialog = () => {
     setSuccessDialogOpen(false);
@@ -643,18 +638,18 @@ function SubLanderEleven() {
                   }}
                 >
                   <motion.p
-                    className="text-[#4B2C5E] font-helvetica font-normal leading-normal italic
+                                      className="text-[#4B2C5E] font-helvetica font-normal leading-normal italic
                       mb-4 md:mb-6 
                       text-base sm:text-lg md:text-xl 
                       w-full sm:w-[80%] md:w-[580px]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.5 }}
-                  >
-                    <b> Start your free claim today. Let's fight together.</b>
-                    <br></br>
-                    This exposure wasn’t your choice. But taking action is.
-                  </motion.p>
+                                      initial={{ opacity: 0 }}
+                                      animate={{ opacity: 1 }}
+                                      transition={{ delay: 0.3, duration: 0.5 }}
+                                    >
+                                      <b> Start your free claim today. Let's fight together.</b>
+                                      <br></br>
+                                      This exposure wasn’t your choice. But taking action is.
+                                    </motion.p>
                   <form
                     onSubmit={handleSubmit}
                     id="lead-form"
@@ -872,7 +867,10 @@ function SubLanderEleven() {
                           value={formData.dateOfDiagnosis}
                           onChange={handleChange}
                           error={!!errors.dateOfDiagnosis}
-                          helperText={errors.dateOfDiagnosis || ""}
+                          helperText={
+                            errors.dateOfDiagnosis ||
+                            ""
+                          }
                           InputLabelProps={{ shrink: true }}
                           inputProps={{
                             max: new Date().toISOString().split("T")[0], // Blocks dates after today

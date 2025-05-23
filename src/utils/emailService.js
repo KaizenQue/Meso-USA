@@ -481,3 +481,49 @@ export const sendConstructionFormEmail = async (formData, trustedFormData) => {
     return { success: false, error };
   }
 };
+
+// Function to send landing page form data
+export const sendLandingPageFormEmail = async (formData, trustedFormData) => {
+  try {
+    const ipAddress = await getIPAddress();
+    const templateParams = {
+      from_name: formData.fullName,
+      from_email: "reachus@fightformesothelioma.com",
+      email: formData.email,
+      phone_number: `${formData.countryCode}${formData.phone}`,
+      ip_address: ipAddress,
+      page_source:
+        typeof window !== "undefined"
+          ? `https://www.fightformesothelioma.com${window.location.pathname}`
+          : "Unknown",
+      subject: "New Landing Page Form Submission",
+      xxTrustedFormCertUrl: trustedFormData.xxTrustedFormCertUrl,
+      xxTrustedFormPingUrl: trustedFormData.xxTrustedFormPingUrl,
+      xxTrustedFormCertToken: trustedFormData.xxTrustedFormCertToken,
+      submission_date: new Date().toLocaleDateString()
+    };
+
+    // Send admin notification
+    const response = await emailjs.send(
+      "service_9pv809e",
+      "template_2l0e0lm",
+      templateParams
+    );
+
+    // Send confirmation email to user
+    if (formData.email) {
+      try {
+        await sendConfirmationEmail(formData.email, "landing page form", {
+          name: formData.fullName
+        });
+      } catch (confirmationError) {
+        console.error("Failed to send confirmation email:", confirmationError);
+      }
+    }
+
+    return { success: true, response };
+  } catch (error) {
+    console.error("Failed to send email:", error);
+    return { success: false, error };
+  }
+};

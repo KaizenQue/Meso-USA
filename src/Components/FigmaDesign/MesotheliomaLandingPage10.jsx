@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { sendConstructionFormEmail } from "../../utils/emailService";
 import logo from '../../assets/MesoLogoWhite.png'
+import useDynamicPhoneNumber from '../../hooks/useDynamicPhoneNumber';
 
 const MesotheliomaLandingPage10 = () => {
   const [birthDate, setBirthDate] = useState(null);
@@ -12,6 +13,7 @@ const MesotheliomaLandingPage10 = () => {
   const [pingUrl, setPingUrl] = useState("");
   const [certId, setCertId] = useState("");
   const [tokenUrl, setTokenUrl] = useState("");
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -344,7 +346,7 @@ const MesotheliomaLandingPage10 = () => {
           {/* Phone Button - Now after industry sections */}
           <div className="mt-8">
             <button 
-              onClick={() => window.location.href = 'tel:8882128149'}
+              onClick={() => window.location.href = `tel:${getCleanPhoneNumber()}`}
               className="bg-[#4B2C5E] hover:bg-[#3a2249] text-white rounded-full flex items-center gap-2 py-3 px-6 text-lg transition-all duration-300 hover:scale-105"
             >
               <div className="bg-yellow-400 rounded-full p-2">
@@ -363,7 +365,7 @@ const MesotheliomaLandingPage10 = () => {
                   />
                 </svg>
               </div>
-              <span>(833) 588-0606</span>
+              <span>{phoneNumber}</span>
             </button>
           </div>
         </div>
@@ -568,7 +570,7 @@ const MesotheliomaLandingPage10 = () => {
                     <option value="" disabled>Type of Diagnosis *</option>
                     <option value="mesothelioma">Mesothelioma</option>
                     <option value="lung-cancer">Lung Cancer</option>
-                    
+                    <option value="asbestosis">Asbestosis</option>
                     <option value="other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">

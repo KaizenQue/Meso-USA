@@ -12,6 +12,7 @@ import AutoMobileVideo from "../assets/video.mp4";
 import NavbarSubDomains from "../Components/NavBarSubDomains/NavBarSubDomains/NavbarSubDomains";
 import Group from "../../src/assets/Group 35645.png";
 import Vector from "../../src/assets/Maintenance mechanic.jpg";
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 import {
   Button,
   TextField,
@@ -37,6 +38,8 @@ import {
 import SuccessDialog from "./SuccessDialog";
 
 function SubLanderEight() {
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
+
   const textFieldStyle = {
     "& .MuiInputLabel-root": {
       color: "#4b2c5e",
@@ -565,7 +568,7 @@ function SubLanderEight() {
                   <b className="text-[#2E4A7D]">
                     Whether you worked in automotive, construction, or general
                     labor, your exposure may have occurred during everyday
-                    tasks. If you worked as a laborer, you may have come
+                    tasks. If you worked as a steamfitter, you may have come
                     into contact with dangerous asbestos found in:
                   </b>
                 </motion.p>
@@ -660,7 +663,7 @@ function SubLanderEight() {
                   >
                     <b> Start your free claim today. Let's fight together.</b>
                     <br></br>
-                    This exposure wasn’t your choice. But taking action is.
+                    This exposure wasn't your choice. But taking action is.
                   </motion.p>
                   <form
                     onSubmit={handleSubmit}

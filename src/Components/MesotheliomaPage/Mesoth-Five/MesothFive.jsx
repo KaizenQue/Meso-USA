@@ -10,10 +10,10 @@ const MesothFive = () => {
     return (
         <div className="bg-[#f7ede3] w-full flex flex-col items-center text-[32px] md:text-[48px] text-white pt-5 pb-20 relative">
             <img className="hidden md:block absolute top-[220px] right-[5%] w-[450px] lg:w-[600px] h-auto object-cover z-0" alt="" src={Img2} />
-            <img className="hidden lg:block absolute h-[16.5%] w-[40%] top-[-4.51%] right-0 max-w-full overflow-hidden max-h-full z-0 top-[0px]" alt="" src={Img3} />
+            <img className="hidden lg:block absolute h-[16.5%] w-[40%] top-[-4.51%] right-0 max-w-full overflow-hidden max-h-full z-0" alt="" src={Img3} />
             <div className="w-[90%] md:w-[80%] mt-[120px] md:mt-[198px] mb-[80px] md:mb-[100px] text-[48px] md:text-[96px] text-[#4b2c5e] font-georgia relative z-10">
-                <i className="block w-full md:w-[638px]">Types of Mesothelioma</i>
-                <div className="mt-[40px] md:mt-[60px] text-[18px] md:text-[24px] font-helvetica w-full md:w-[45%]">
+                <i className="block w-full md:w-[638px] 2xl:text-[133px] 2xl:w-[1200px]">Types of Mesothelioma</i>
+                <div className="mt-[40px] md:mt-[60px] text-[18px] md:text-[24px] font-helvetica w-full md:w-[45%] 2xl:text-[37px]">
                     Mesothelioma can develop in different parts of the body. The type of mesothelioma determines symptoms, treatment options, and prognosis.
                 </div>
             </div>
@@ -27,16 +27,16 @@ const MesothFive = () => {
                         {/* White vertical line - positioned at the start of image container */}
                         <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
 
-                        <img className="w-[200px] md:w-[298px] h-[200px] md:h-[298px] overflow-hidden relative z-10" alt="" src={Img4} />
+                        <img className="w-[200px] md:w-[298px] h-[200px] md:h-[298px] 2xl:w-[400px] 2xl:h-[400px] 2xl:ml-[15%] overflow-hidden relative z-10" alt="" src={Img4} />
                     </div>
                     
                     {/* Content container */}
                     <div className="flex flex-col md:py-[45px] pl-[35px] sm:pl-[40px] md:pl-[5%] pr-[5%] md:w-[65%]">
                         <div className="font-georgia pt-[20px] md:pt-0">
-                            <i className="text-[32px] md:text-[48px] underline">Pleural Mesothelioma</i>
+                            <i className="text-[32px] md:text-[48px] underline 2xl:text-[57px]">Pleural Mesothelioma</i>
                         </div>
                         
-                        <div className="mt-[25px] rounded-[20px] bg-[rgba(255,255,255,0.7)] border border-[rgba(75,44,94,0.2)] overflow-hidden p-2 mt-2 text-[16px] md:text-[32px] text-[#4b2c5e] w-fit">
+                        <div className="mt-[25px] rounded-[20px] bg-[rgba(255,255,255,0.7)] border border-[rgba(75,44,94,0.2)] overflow-hidden p-2 text-[16px] md:text-[32px] text-[#4b2c5e] w-fit">
                             <div className="flex whitespace-nowrap mt-3">
                                 <p>Lungs</p>
                                 <span>{` - `}</span>
@@ -45,7 +45,7 @@ const MesothFive = () => {
                             </div>
                         </div>
                         
-                        <div className="mt-[25px] text-[18px] md:text-[24px]">
+                        <div className="mt-[25px] text-[18px] md:text-[24px] 2xl:text-[29px]">
                             <ul className="m-0 text-inherit pl-4 md:pl-8">
                                 <li className="mb-0">
                                     <span className="font-helvetica">{`Develops in the `}</span>
@@ -83,7 +83,7 @@ const MesothFive = () => {
                         {/* White vertical line - positioned at the start of image container */}
                         <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
 
-                        <div className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] relative">
+                        <div className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] 2xl:w-[400px] 2xl:h-[400px] 2xl:ml-[15%] relative">
                             <img className="h-[93.58%] w-[88.19%] absolute top-[13.25%] right-[3.47%] bottom-[13.17%] left-[8.33%] max-w-full overflow-hidden max-h-full" alt="" src={Img5} />
                         </div>
                     </div>                                                                                                                                                                                  
@@ -103,7 +103,7 @@ const MesothFive = () => {
                             </div>
                         </div>
                         
-                        <div className="mt-[25px] text-[18px] md:text-[24px] text-white">
+                        <div className="mt-[25px] text-[18px] md:text-[24px] text-white 2xl:text-[29px]">
                             <ul className="m-0 text-inherit pl-4 md:pl-8">
                                 <li className="mb-0">
                                     <span className="font-helvetica">{`Affects the `}</span>
@@ -142,9 +142,9 @@ const MesothFive = () => {
                     {/* Image container */}
                     <div className="flex justify-center md:justify-start pt-[20px] md:pt-[40px] md:pl-[100px] md:w-[35%] relative">
                         {/* White vertical line - positioned at the start of image container */}
-                        <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
+                        <div className="block w-[3px] h-[385%] sm:h-[385%]  absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
 
-                        <img className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] overflow-hidden" alt="" src={Img6} />
+                        <img className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] 2xl:w-[400px] 2xl:h-[400px] 2xl:ml-[15%] overflow-hidden" alt="" src={Img6} />
                     </div>
                     
                     {/* Content container */}
@@ -162,7 +162,7 @@ const MesothFive = () => {
                             </div>
                         </div>
                         
-                        <div className="mt-[25px] text-[18px] md:text-[24px]">
+                        <div className="mt-[25px] text-[18px] md:text-[24px] 2xl:text-[29px]">
                             <ul className="m-0 text-inherit pl-4 md:pl-8">
                                 <li className="mb-0">
                                     <span className="font-helvetica">{`Develops in the `}</span>
@@ -201,8 +201,8 @@ const MesothFive = () => {
                         {/* White vertical line - positioned at the start of image container */}
                         <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
 
-                        <div className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] relative">
-                            <img className="h-[83.33%] w-[61.15%] absolute top-[8.34%] right-[24.52%] bottom-[8.33%] left-[14.34%] max-w-full overflow-hidden max-h-full" alt="" src={Img7} />
+                        <div className="w-[200px] md:w-[288px] h-[200px] md:h-[288px] 2xl:w-[600px] 2xl:h-[600px] 2xl:ml-[15%] relative">
+                            <img className="h-[83.33%] w-[61.15%] xl:w-[600px] xl:h-[600px]  absolute top-[8.34%] right-[24.52%] bottom-[8.33%] left-[14.34%] max-w-full overflow-hidden max-h-full" alt="" src={Img7} />
                         </div>
                     </div>
                     
@@ -220,7 +220,7 @@ const MesothFive = () => {
                             </div>
                         </div>
                         
-                        <div className="mt-[25px] text-[18px] md:text-[24px] text-white">
+                        <div className="mt-[25px] text-[18px] md:text-[24px] text-white 2xl:text-[29px]">
                             <ul className="m-0 text-inherit pl-4 md:pl-8">
                                 <li className="mb-0">
                                     <span className="font-helvetica">Develops in the</span>

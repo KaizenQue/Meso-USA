@@ -75,7 +75,7 @@ function MesoFAQ() {
         <section className="py-1 bg-[#FAF3EC] font-sans">
             <div className="max-w-8xl m-32 mt-8">
                 <h2
-                    className="w-full max-w-[914px] text-[#4B2C5E] font-georgia italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-normal leading-normal text-left relative sm:static sm:right-0 right-[70px]"
+                    className="w-full max-w-[914px] text-[#4B2C5E] font-georgia italic text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] 2xl:text-[100px] font-normal leading-normal text-left relative sm:static sm:right-0 right-[70px]"
                     style={{ fontFeatureSettings: "'dlig' on" }}
                 >
                     Frequently Asked Questions

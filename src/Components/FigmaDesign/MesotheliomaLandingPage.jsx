@@ -7,6 +7,7 @@ import logo from '../../assets/MesoLogoWhite.png'
 import Svg1 from '../../assets/SM3.svg'
 import Svg2 from '../../assets/AM2.svg'
 import Svg3 from '../../assets/SM1.svg'
+import useDynamicPhoneNumber from '../../hooks/useDynamicPhoneNumber';
 
 const MesotheliomaLandingPage = () => {
   const [birthDate, setBirthDate] = useState(null);
@@ -15,6 +16,7 @@ const MesotheliomaLandingPage = () => {
   const [pingUrl, setPingUrl] = useState("");
   const [certId, setCertId] = useState("");
   const [tokenUrl, setTokenUrl] = useState("");
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -294,7 +296,7 @@ const MesotheliomaLandingPage = () => {
           {/* Phone Button - Now after industry sections */}
           <div className="mt-8">
             <button
-              onClick={() => window.location.href = 'tel:8882128149'}
+              onClick={() => window.location.href = `tel:${getCleanPhoneNumber()}`}
               className="bg-[#4B2C5E] hover:bg-[#3a2249] text-white rounded-full flex items-center gap-2 py-3 px-6 text-lg transition-all duration-300 hover:scale-105"
             >
               <div className="bg-yellow-400 rounded-full p-2">
@@ -313,7 +315,7 @@ const MesotheliomaLandingPage = () => {
                   />
                 </svg>
               </div>
-              <span>(833) 588-0606</span>
+              <span>{phoneNumber}</span>
             </button>
           </div>
         </div>
@@ -517,7 +519,7 @@ const MesotheliomaLandingPage = () => {
                     <option value="" disabled>Type of Diagnosis *</option>
                     <option value="mesothelioma">Mesothelioma</option>
                     <option value="lung-cancer">Lung Cancer</option>
-                    
+                    <option value="asbestosis">Asbestosis</option>
                     <option value="other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">

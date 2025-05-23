@@ -7,27 +7,35 @@ import BackgroundImg from '../../assets/aboutusImg4.svg';
 const AboutUsPage = () => {
     return (
         <div>
+        {/* mobile view */}
             <div className="block md:hidden w-full relative bg-[#faf3ec] min-h-screen overflow-hidden text-left text-[#4b2c5e] font-georgia ">
                 {/* Main Content Container */}
                 <div className="container mx-auto px-4 py-8 md:py-16 relative">
                     {/* Title Section */}
-                    <div className="w-full md:w-1/2 lg:w-2/3 xl:w-1/2 mx-auto text-left mb-8 md:mb-16">
+                    <div className="w-full text-left mb-8 md:mb-16">
                         <i className="text-4xl md:text-6xl lg:text-7xl xl:text-[80px] font-georgia italic block mb-4">
-                            Who we are
+                            Who we are 
                         </i>
                         <p className="text-base md:text-lg lg:text-xl xl:text-[20px] font-helvetica text-left">
                             <span>At Fight for Mesothelioma, we are committed to standing with individuals and families affected by </span>
                             <b>asbestos exposure.</b>
                         </p>
                     </div>
- 
+                       <div className="w-full lg:w-1/2 order-2 ">
+                            <img
+                                className="w-full h-auto mt-5 max-h-[50vh] object-contain"
+                                alt="About us visual"
+                                src={MainImgmobile}
+                            />
+                        </div>
+
                     {/* Image and Text Section */}
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
-                      
-                        <div className="w-[719px] h-[302px] flex-shrink-0 border-[2.4px] border-[#F3E2C8]"></div>
-                        <div className="w-[2.4px] h-[173px] bg-[#F3E2C8] absolute z-10 mt-12 ml-[-60%]"></div>
 
-                        <div className='mt-[-84%] w-[280px] ml-[27%]'>
+                        {/* <div className="w-[719px] h-[302px] flex-shrink-0 border-[2.4px] border-[#F3E2C8]"></div> */}
+                        {/* <div className="w-[2.4px] h-[173px] bg-[#F3E2C8] absolute z-10 mt-12 ml-[-60%]"></div> */}
+
+                        <div className='mt-[4%] w-[280px] ml-[27%] 2xl:mt-16'>
                             <p className="mb-4 md:mb-6 text-[12px] leading-[16px] font-helvetica font-normal not-italic text-[#4B2C5E] [font-feature-settings:'dlig']">
                                 <span>{`Our aim is to provide `}</span>
                                 <b className="font-bold">expert legal guidance, advocate for victims' rights,</b>
@@ -51,22 +59,18 @@ const AboutUsPage = () => {
                             </p>
                         </div>
 
-                        <div className="w-full lg:w-1/2 order-2 lg:order-1">
-                            <img
-                                className="w-full h-auto mt-5 max-h-[70vh] object-contain"
-                                alt="About us visual"
-                                src={MainImgmobile}
-                            />
-                        </div>
+                     
                     </div>
                 </div>
             </div>
+
+            {/* desktop view */}
             <div className="hidden md:block w-full relative bg-[#faf3ec] h-screen overflow-hidden text-left text-[20px] text-[#4b2c5e] font-georgia">
-                <div className="w-full relative bg-[#faf3ec] h-screen overflow-hidden text-left text-[20px] text-[#4b2c5e] font-georgia">
-                    <div className="relative top-[300px] -left-[23px] border-[5px] border-[#f3e2c8] box-border w-[101vw] h-[400px] overflow-hidden font-helvetica">
-                        <div className="absolute top-[40px] left-1/2 translate-x-[9px] inline-block w-[600px] left-[850px]">
+                <div className="w-full relative bg-[#faf3ec] h-screen overflow-hidden text-left text-[20px] text-[#4b2c5e] font-georgia ">
+                    {/* <div className="relative top-[300px] -left-[23px] border-[5px] border-[#f3e2c8] box-border w-[101vw] h-[400px] overflow-hidden font-helvetica"> */}
+                        <div className="absolute top-[40px] translate-x-[9px] inline-block w-[600px] left-[850px] text-[20px] xl:mt-[19%] xl:ml-[-3%] 2xl:ml-[26%] 2xl:text-[26px] 2xl:mt-[17%]">
                             <p className="m-0">
-                                <span className="font-helvetica">{`Our aim is to provide `}</span>
+                                <span className="font-helvetica text-[18px] 2xl:text-[26px]">{`Our aim is to provide `}</span>
                                 <b>expert legal guidance, advocate for victims' rights,</b>
                                 <span className="font-helvetica">{` and `}</span>
                                 <b className="font-helvetica">raise awareness</b>
@@ -87,25 +91,20 @@ const AboutUsPage = () => {
                                 <b className="font-helvetica">prevent future asbestos-related harm.</b>
                             </p>
                         </div>
-                        <div className="absolute top-1/2 -translate-y-[130.5px] right-[723.5px] border-r-[5px] border-[#f3e2c8] box-border w-[5px] h-[260px]" />
-                    </div>
+                        {/* <div className="absolute top-1/2 -translate-y-[130.5px] right-[723.5px] border-r-[5px] border-[#f3e2c8] box-border w-[5px] h-[260px]" /> */}
+                    {/* </div> */}
 
 
-                    <img
-                        className="absolute h-auto w-[30.21%] top-[5vh] right-[45.42%] left-[24.37%] max-w-full overflow-hidden object-contain"
-                        alt=""
-                        src={BackgroundImg}
-                    />
 
                     <img
-                        className="absolute top-[30px] left-[10vw] h-auto max-h-[85vh]"
+                        className="absolute top-[30px] left-[10vw]  h-auto max-h-[85vh] 2xl:h-[60vh] 2xl:ml-[10%] mt-10"
                         alt=""
                         src={MainImg}
                     />
 
-                    <div className="absolute top-[10vh] left-[623px] rounded-[20px] w-[740px] h-[209px] overflow-hidden text-[80px]">
-                        <i className="absolute top-[24px] left-1/2 -translate-x-[288px] w-[543px] font-['Georgia'] italic">Who we are</i>
-                        <div className="absolute top-[139px] left-1/2 -translate-x-[288px] text-[20px] inline-block w-[543px] font-['Helvetica'] w-[625px]">
+                    <div className="absolute top-[10vh] left-[623px] rounded-[20px] w-[840px] h-[209px] overflow-hidden text-[80px] xl:ml-[4%] 2xl:ml-[30%] 2xl:h-[400px]">
+                        <i className="absolute top-[24px] left-1/2 -translate-x-[288px] w-[543px] font-['Georgia'] italic 2xl:text-[100px]">Who we are </i>
+                        <div className="absolute top-[139px] left-1/2 -translate-x-[288px] text-[20px] 2xl:text-[28px] 2xl:mt-16 inline-block w-[580px] font-helvetica">
                             <span>{`At Fight for Mesothelioma, we are committed to standing with individuals and families affected by `}</span>
                             <b>asbestos exposure.</b>
                         </div>

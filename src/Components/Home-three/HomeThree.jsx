@@ -18,7 +18,7 @@ function HomeThree() {
       {/* Desktop Version */}
       <section className="hidden md:block w-full bg-[#FAF3EC] font-helvetica text-[#4B2C5E] overflow-hidden">
         <div className="relative w-full py-[10px]">
-          <div className="relative max-w-[1200px] mx-auto px-[40px]">
+          <div className="relative max-w-[1200px] 2xl:max-w-[1600px] mx-auto px-[40px]">
             {/* <h2 className="font-georgia text-[80px] font-normal mb-[40px] leading-[1.14] text-[#4B2C5E] mt-32 ml-[-16%]">
               <img
                 src={heart}
@@ -26,37 +26,37 @@ function HomeThree() {
                 className="w-[750px] h-full ml-[13px] top-[19px] left-[-59%]"
               />
             </h2> */}
-            <h3 className="font-georgia text-[80px] font-normal italic leading-[1.14] text-[#4B2C5E] text-left mt-[30%] ml-[4%]">
-              <div className=" text-left  ml-[-8%]">YOU GAVE EVERYTHING, </div>
+            <h3 className="font-georgia text-[80px] 2xl:text-[120px] font-normal italic leading-[1.14] text-[#4B2C5E] text-left mt-[30%] ml-[4%]">
+              <div className=" text-left ml-[-8%]">YOU GAVE EVERYTHING, </div>
               <div className="text-[#4B2C5E]/60 ml-[-8%]">BUT NO ONE WARNED YOU ABOUT ASBESTOS</div>
             </h3>
 
-            <div className="flex ml-[-1%] mt-10">
-              <div className="max-w-[500px]">
-                <p className="text-[24px] leading-[1.15] mt-[21px] text-[#4B2C5E]">
+            <div className="flex mt-10">
+              <div className="max-w-[690px]">
+                <p className="text-[24px] 2xl:text-[32px] leading-[1.5] mt-[21px] text-[#4B2C5E]">
                   You gave your all-for your family, your future, even your country. But no one warned you that a single invisible fiber could change everything.
                 </p>
-                <p className="text-[24px] leading-[1.15] mb-[20px] text-[#4B2C5E]">
+                <p className="text-[24px] 2xl:text-[32px] leading-[1.5] mb-[20px] text-[#4B2C5E]">
                   Asbestos was everywhere-on job sites, in homes, even in uniforms. Decades later, mesothelioma now reveals the danger no one saw coming.
 
                 </p>
-                <p className="text-[24px] leading-[1.15] mb-[20px] text-[#4B2C5E]">
+                <p className="text-[24px] 2xl:text-[32px] leading-[1.5] mb-[20px] text-[#4B2C5E]">
                   Nearly two-thirds of those diagnosed are over 65. The disease can stay hidden for decades, making the journey especially difficult for seniors. But you don’t have to face it alone.
                 </p>
-                <p className="text-[24px] leading-[1.15] mb-[20px] text-[#4B2C5E]">
+                <p className="text-[24px] 2xl:text-[32px] leading-[1.5] mb-[20px] text-[#4B2C5E]">
                   With the right medical support, legal guidance, and compassionate care-there’s a way forward.
                 </p>
-                <p className="text-[24px] leading-[1.15] mb-[20px] text-[#4B2C5E]">
+                <p className="text-[24px] 2xl:text-[32px] leading-[1.5] mb-[20px] text-[#4B2C5E]">
                   Our experienced legal experts don’t just support you-they &nbsp;
 
                   <NavLink
                     to="/ClaimForm"
                     className={({ isActive }) =>
-                      `font-helvetica font-normal text-[24px] cursor-pointer ${isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
+                      `font-helvetica font-normal text-[24px] 2xl:text-[32px] italic  cursor-pointer ${isActive ? 'text-[#2E4A7D]' : 'text-[#4B2C5E]'
                       }`
                     }
                   >
-                    <span>fight for you with compassion and clarity</span>.
+                    <span><b>fight for you with compassion and clarity</b></span>.
                   </NavLink>
 
                 </p>

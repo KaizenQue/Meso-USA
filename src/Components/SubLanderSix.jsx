@@ -13,6 +13,7 @@ import AutoMobileVideo from "../assets/video.mp4";
 import NavbarSubDomains from "../Components/NavBarSubDomains/NavBarSubDomains/NavbarSubDomains";
 import Group from "../../src/assets/Group 35645.png";
 import Vector from "../../src/assets/funrace-klin.png";
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 import {
   Button,
   TextField,
@@ -38,6 +39,8 @@ import {
 import SuccessDialog from "./SuccessDialog";
 
 function SubLanderSix() {
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
+
   const textFieldStyle = {
     "& .MuiInputLabel-root": {
       color: "#4b2c5e",
@@ -658,7 +661,7 @@ function SubLanderSix() {
                   >
                     <b> Start your free claim today. Let's fight together.</b>
                     <br></br>
-                    This exposure wasn’t your choice. But taking action is.
+                    This exposure wasn't your choice. But taking action is.
                   </motion.p>{" "}
                   <form
                     onSubmit={handleSubmit}

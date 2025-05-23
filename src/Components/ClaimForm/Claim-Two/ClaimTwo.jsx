@@ -17,7 +17,7 @@ const CLAIMFORMPage2 = () => {
                     <div className="relative left-[-100px] top-[100px] mt-8 w-[652px] h-[342px] text-[20px] font-helvetica mx-auto">
                         <div className="relative rounded-[20px] bg-white w-[523px] h-[228px] overflow-hidden ml-[220px]">
                             <i className="absolute top-[24px] left-[112px] text-[32px] underline tracking-[0.01em] font-['Georgia']">{`Let Us Help to Protect It `}</i>
-                            <div className="absolute top-[76px] left-[112px] font-['Helvetica']">Let's take the next step together </div>
+                            <div className="absolute top-[76px] left-[112px] font-helvetica">Let's take the next step together </div>
                             <div className="absolute top-[calc(50%+19px)] left-[112px] rounded-[20px] bg-[#4b2c5e] h-[71px] overflow-hidden flex flex-row items-center justify-center p-[24px] box-border text-[#f8f2e9]">
                                 <b className="relative">Call Us Today</b>
                             </div>

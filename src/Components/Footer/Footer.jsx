@@ -96,7 +96,7 @@ const Footer = () => {
                         {/* Newsletter Section */}
                         <div className="flex flex-col space-y-4 mt-6 md:mt-0">
                             <form onSubmit={handleSubscribe} className="w-full max-w-[436px] mx-auto md:mx-0">
-                                <b className="block text-[16px] md:text-[18px] mb-4 font-bold font-['Helvetica'] text-center md:text-left">
+                                <b className="block text-[16px] md:text-[18px] mb-4 font-bold font-helvetica text-center md:text-left">
                                     Subscribe to our newsletter
                                 </b>
 
@@ -139,7 +139,7 @@ const Footer = () => {
                             {/* Contact Info */}
                             <div className="flex items-center justify-center md:justify-end space-x-4 mt-6 md:mt-8">
                                 <img className="w-6 h-6 md:w-8 md:h-8" alt="" src={emailImg} />
-                                <a className="text-[16px] md:text-[18px] underline leading-[34px] font-['Helvetica'] text-[#4B2C5E]"
+                                <a className="text-[16px] md:text-[18px] underline leading-[34px] font-helvetica text-[#4B2C5E]"
                                     href="mailto:reachus@fightformesothelioma.com"
                                     target="_blank"
                                     rel="noopener noreferrer">
@@ -152,7 +152,7 @@ const Footer = () => {
                     {/* Footer Bottom */}
                     <div className="mt-8 pt-4 border-t border-[#f3e2c8] flex flex-col sm:flex-row items-center justify-between text-[rgba(75,44,94,0.66)]">
                         <div className="text-center sm:text-left mb-4 sm:mb-0 text-[12px] sm:text-[14px]">
-                            <span className="text-[14px] sm:text-[16px] font-medium font-helvetica text-[#c6c3c3] mr-1">©</span>
+                            <span className="text-[14px] sm:text-[16px] font-medium font-helvetica text-[rgba(75,44,94,0.66)] mr-1">©</span>
                             <span>2025.</span> 
                             <span className="ml-1">All rights reserved &nbsp;</span>
                             <a href="/PrivacyPolicy" className="underline hover:text-blue-200">

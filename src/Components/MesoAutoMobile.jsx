@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { sendConstructionFormEmail } from '../utils/emailService'
 import AutoMobileVideo from '../assets/AutoMobileNew.mp4'
 import logo from '../assets/Meso logo-01 1.png'
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber'
 
 import { 
   Button, 
@@ -219,6 +220,7 @@ export default function MesoAutoMobile() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
 
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -682,7 +684,7 @@ export default function MesoAutoMobile() {
                             }}
                           >
                             <motion.a
-                              href="tel:8882128149"
+                              href={`tel:+1${getCleanPhoneNumber()}`}
                               className="flex items-center gap-2"
                               animate={{
                                 x: [0, 10, 0],
@@ -698,7 +700,7 @@ export default function MesoAutoMobile() {
                                 color: 'inherit'
                               }}
                             >
-                              <span>(833) 588-0606</span>
+                              <span>{phoneNumber}</span>
                             </motion.a>
                           </Typography>
                         </Box>

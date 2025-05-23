@@ -44,12 +44,12 @@ function MesothTwo() {
     ];
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <h1 className="max-w-3xl w-full text-[#2E4A7D] text-center font-[Georgia] text-5xl md:text-6xl lg:text-8xl italic font-normal leading-tight mx-auto py-4">
+        <div className="max-w-7xl mx-auto p-6">
+            <h1 className="max-w-5xl w-full text-[#2E4A7D] text-center font-[Georgia] text-5xl md:text-6xl lg:text-8xl 2xl:text-[150px] italic font-normal leading-tight mx-auto py-4">
                 Who is at risk?
             </h1>
 
-            <p className="text-[#4B2C5E] mt-5 text-center font-[Helvetica] text-[24px] font-normal leading-none">
+            <p className="text-[#4B2C5E] mt-5 text-center font-[Helvetica] text-[24px] 2xl:text-[32px] 2xl:w-full font-normal leading-none">
                 Each year, more than <span className="font-bold">3,000 people</span> in the United States are diagnosed with mesothelioma.
                 The disease primarily <span className="font-bold">affects individuals aged 55 and older, with men being diagnosed more often than women</span>.
                 Certain occupations and environments increase mesothelioma risk. People exposed to asbestos fibers at work or home are the most vulnerable.
@@ -73,11 +73,11 @@ function MesothTwo() {
                     preventMovementUntilSwipeScrollTolerance={true}
                 >
                     {cards.map((card, index) => (
-                        <div key={index} className="flex-shrink-0 w-[390px] h-[500px] rounded-[20px] flex flex-col items-center p-4 mx-2">
+                        <div key={index} className="flex-shrink-0 w-[390px] h-[500px] 2xl:w-[440px] 2xl:h-[600px] rounded-[20px] flex flex-col items-center p-4 mx-2">
                             <img
                                 src={card.image}
                                 alt={card.alt}
-                                className="w-[324px] h-[418px] flex-shrink-0 rounded-[20px] object-cover"
+                                className="w-[324px] h-[418px] 2xl:w-[640px] 2xl:h-[600px] flex-shrink-0 rounded-[20px] object-cover"
                             />
                         </div>
                     ))}
@@ -87,11 +87,11 @@ function MesothTwo() {
             {/* Mobile Stacked View */}
             <div className="mobile-cards">
                 {cards.map((card, index) => (
-                    <div key={index} className="flex-shrink-0 w-full rounded-[20px] flex flex-col items-center p-4">
+                    <div key={index} className="flex-shrink-0 w-full rounded-[20px] flex flex-col items-center p-4 2xl:p-5">
                         <img
                             src={card.image}
                             alt={card.alt}
-                            className="w-full max-w-[324px] h-[418px] flex-shrink-0 rounded-[20px] object-cover"
+                            className="w-full max-w-[324px] h-[418px] flex-shrink-0 rounded-[20px] object-cover 2xl:p-5"
                         />
                     </div>
                 ))}

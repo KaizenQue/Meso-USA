@@ -17,20 +17,20 @@ function HomeSix() {
       {/* Desktop Version */}
       <div className="hidden md:block relative bg-[#FAF3EC]">
         {/* Buttons */}
-        <div className="absolute z-10 left-[14%]">
-          <button className="mt-[260%] inline-flex h-[71px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl font-bold rounded-2xl bg-[#2E4A7D] hover:bg-[#1E3558] transition-colors">
+        <div className="absolute z-10 left-[14%] 2xl:ml-[11px] 2xl:mt-[-10%] xl:mt-[-2%] ">
+          <button className="mt-[260%] inline-flex h-[71px] 2xl:h-[90px] 2xl:w-[500px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl 2xl:text-3xl font-bold rounded-2xl bg-[#2E4A7D] hover:bg-[#1E3558] transition-colors">
             File Your Claim Now
           </button>
         </div>
 
-        <div className="absolute z-10 left-[41%]">
-          <button className="mt-[300%] inline-flex h-[71px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl font-bold rounded-2xl bg-[#4B2C5E] hover:bg-[#3A1D4D] transition-colors" onClick={() => window.scrollBy(0, -4500)}>
+        <div className="absolute z-10 left-[41%] xl:mt-[-11.5%] xl:ml-[-10px] 2xl:ml-[-5px] 2xl:mt-[-18%] ">
+          <button className="mt-[300%] inline-flex h-[71px] xl:w-[250px] 2xl:h-[90px] 2xl:w-[500px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl 2xl:text-3xl font-bold rounded-2xl bg-[#4B2C5E] hover:bg-[#3A1D4D] transition-colors" onClick={() => window.scrollBy(0, -4500)}>
             Connect With Us
           </button>
         </div>
 
-        <div className="absolute z-10 left-[66%]">
-          <button className="mt-[355%] inline-flex h-[71px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl font-bold rounded-2xl bg-[#C49A6C] hover:bg-[#B4895B] transition-colors" onClick={handleButtonClick}>
+        <div className="absolute z-10 left-[66%] xl:mt-[-21%] xl:ml-[0.5%] 2xl:ml-[11px] 2xl:mt-[-28.5%] ">
+          <button className="mt-[355%] inline-flex h-[71px] xl:w-[250px] 2xl:h-[90px] 2xl:w-[500px] px-6 justify-center items-center gap-2.5 shrink-0 text-[#FAF3EC] font-helvetica text-xl 2xl:text-3xl font-bold rounded-2xl bg-[#C49A6C] hover:bg-[#B4895B] transition-colors" onClick={handleButtonClick}>
           Call Us Today 
           </button>
         </div>

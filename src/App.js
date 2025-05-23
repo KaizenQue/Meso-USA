@@ -20,7 +20,7 @@ import ClaimForm from "./Components/ClaimForm/ClaimForm"
 import "leaflet/dist/leaflet.css";
 import MesotheliomaLandingPage from "./Components/FigmaDesign/MesotheliomaLandingPage.jsx"
 import MesoAutoMobile from "./Components/MesoAutoMobile.jsx"
-
+import ChatInterface from "./Components/ChatPage/ChatInterface"
 import Veterans from "./Components/Veterans"
 import HeavyMachineryPlants from "./Components/HeavyManufacturingPlants"
 import OilRefineries from "./Components/OilRefinery"
@@ -48,7 +48,11 @@ import SubLanderFive from "./Components/SubLanderFive"
 import SubLanderSix from "./Components/SubLanderSix"
 import SubLanderSeven from "./Components/SubLanderSeven"
 import SubLanderEight from './Components/SubLanderEight.jsx';
-import FeatureScrollSection from './Components/NewMesoTemplates/FeatureScrollSection';
+import MesotheliomaLandingPageNew from './FigmaDesign2/MesotheliomaLandingPageNew.jsx';
+import ChatInterface2 from './Components/ChatPage/ChatInterface2.jsx';
+import ChatInterface3 from './Components/ChatPage/ChatInterface3.jsx';
+import MesotheliomaLandingPageNew2 from './FigmaDesign2/MesotheliomaLandingPageNew2.jsx';
+import MesotheliomaLandingPageNew3 from './FigmaDesign2/MesotheliomaLandingPageNew3.jsx';
 
 function App() {
   // useEffect(() => {
@@ -282,9 +286,29 @@ function App() {
       element: <MesoConstructionLander />,
     },
     {
-      path: '/FeatureScrollSection',
-      element: <FeatureScrollSection />,
+      path: '/mesothelioma-claim-manufacturing-workers-cc1',
+      element: <MesotheliomaLandingPageNew />,
     },
+    {
+      path: '/mesothelioma-claim-manufacturing-workers-cc2',
+      element: <MesotheliomaLandingPageNew2 />,
+    },
+    {
+      path: '/mesothelioma-claim-manufacturing-workers-cc3',
+      element: <MesotheliomaLandingPageNew3 />,
+    },
+    {
+      path: '/mesothelioma-cb1',
+      element: <ChatInterface />,
+    },
+    {
+      path: '/mesothelioma-cb2',
+      element: <ChatInterface2 />,
+    },
+    {
+      path: '/mesothelioma-cb3',
+      element: <ChatInterface3 />,
+    }
   ]);
 
 

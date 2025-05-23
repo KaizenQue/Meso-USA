@@ -50,7 +50,7 @@ const AboutUs3 = () => {
             />
             <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
             <div className="w-full md:w-[833px] h-[84px] pl-[35px] md:pl-[70px] flex items-center mt-10" >
-              <b className="text-white font-['Helvetica'] text-left w-full">
+              <b className="text-white font-helvetica text-left w-full">
                 Connecting victims with leading mesothelioma attorneys who specialize in asbestos-related claims, ensuring they receive the justice and compensation they deserve.
               </b>
             </div>
@@ -65,7 +65,7 @@ const AboutUs3 = () => {
             />
             <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
             <div className="w-full md:w-[833px] h-[56px] pl-[35px] md:pl-[70px] flex items-center mt-10">
-              <b className="text-white font-['Helvetica'] text-left w-full">
+              <b className="text-white font-helvetica text-left w-full">
                 Raising awareness about the dangers of asbestos exposure, workplace safety, and the legal rights of those affected.
               </b>
             </div>
@@ -80,7 +80,7 @@ const AboutUs3 = () => {
             />
             <div className="block w-[3px] h-[385%] sm:h-[385%] absolute top-[0%] left-[25px] md:left-[50px] bg-[#f7ede3] z-20"></div>
             <div className="w-full md:w-[833px] h-[56px] pl-[35px] md:pl-[70px] flex items-center mt-10">
-              <b className="text-white font-['Helvetica'] text-left w-full">
+              <b className="text-white font-helvetica text-left w-full">
                 Preventing future cases by sharing vital information on how to recognize and minimize asbestos exposure risks.
               </b>
             </div>

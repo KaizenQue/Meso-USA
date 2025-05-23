@@ -11,6 +11,7 @@ import { sendConstructionFormEmail } from '../utils/emailService'
 import AutoMobileVideo from '../assets/Steel.mp4'
 import logo from '../assets/Meso logo-01 1.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 
 import { 
   Button, 
@@ -216,6 +217,7 @@ export default function SteelMills() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
 
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
@@ -640,7 +642,7 @@ export default function SteelMills() {
                             </svg>
                           </motion.div>
                           <motion.a
-                            href="tel:8882128149"
+                            href={`tel:+1${getCleanPhoneNumber()}`}
                             animate={{
                               x: [0, 10, 0],
                               y: [0, 0, 0]
@@ -656,7 +658,7 @@ export default function SteelMills() {
                             }}
                           >
                             <Typography variant="h6" sx={{ color: '#4b2c5e', fontWeight: 'bold', fontFamily: 'Helvetica' }}>
-                              (833) 588-0606
+                              {phoneNumber}
                             </Typography>
                           </motion.a>
                         </Box>

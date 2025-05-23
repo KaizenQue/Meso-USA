@@ -12,7 +12,7 @@ import AutoMobileVideo from "../assets/video.mp4";
 import NavbarSubDomains from "../Components/NavBarSubDomains/NavBarSubDomains/NavbarSubDomains";
 import Group from "../../src/assets/Group 35645.png";
 import Vector from "../../src/assets/STEAMFITTER.png";
-import "./SubLanderThree.css"
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 import {
   Button,
   TextField,
@@ -38,6 +38,8 @@ import {
 import SuccessDialog from "./SuccessDialog";
 
 function SubLanderThree() {
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
+
   const textFieldStyle = {
     "& .MuiInputLabel-root": {
       color: "#4b2c5e",
@@ -610,9 +612,9 @@ function SubLanderThree() {
             </Grid>
 
             {/* Right Side - Form */}
-<Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <motion.h1
-                className="text-[#2E4A7D] font-georgia italic font-normal leading-tight text-left mx-auto px-4 xl:mt-32 lg:w-[1600px] 2xl:mt-32 2xl:mb-16"
+                className="text-[#2E4A7D] font-georgia italic font-normal leading-tight text-left mx-auto px-4 xl:mt-32 lg:w-[1600px]"
                 style={{
                   fontSize: "clamp(1.5rem, 4vw, 2.875rem)",
                   width: "100%",
@@ -630,21 +632,9 @@ function SubLanderThree() {
                 transition={{ duration: 0.5 }}
                 className="h-full flex items-center justify-center w-full "
               >
-                {/* <Paper
-                  elevation={3}
-                  className="w-full max-w-2xl lg:-mt-16 2xl:-mt-96 "
-                  sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.7)",
-                    backdropFilter: "blur(10px)",
-                    borderRadius: "20px",
-                    padding: "2rem",
-                    border: "1px solid rgba(255, 255, 255, 0.2)",
-                    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-                  }}
-                > */}
                 <Paper
                   elevation={3}
-                  className="w-full max-w-2xl "
+                  className="w-full max-w-2xl lg:-mt-16 2xl:-mt-96"
                   sx={{
                     backgroundColor: "rgba(255, 255, 255, 0.7)",
                     backdropFilter: "blur(10px)",
@@ -652,21 +642,6 @@ function SubLanderThree() {
                     padding: "2rem",
                     border: "1px solid rgba(255, 255, 255, 0.2)",
                     boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-                    marginTop: {
-                      xs: "-2rem", // Mobile (0-639px)
-                      sm: "-3rem", // 640px+
-                      md: "-4rem", // 768px+
-                      lg: "-6rem", // 1024px+
-                      xl: "-8rem", // 1280px+
-                      "2xl": "-10rem", // 1536px+
-                      "3xl": "-12rem", // 4K screens (1920px+)
-                    },
-                    "@media (min-width: 2560px)": {
-                      marginTop: "-14rem", // QHD/2K screens
-                    },
-                    "@media (min-width: 3840px)": {
-                      marginTop: "-64rem", // 4K UHD screens
-                    },
                   }}
                 >
                   <motion.p
@@ -680,7 +655,7 @@ function SubLanderThree() {
                   >
                     <b> Start your free claim today. Let's fight together.</b>
                     <br></br>
-                    This exposure wasn’t your choice. But taking action is.
+                    This exposure wasn't your choice. But taking action is.
                   </motion.p>
                   <form
                     onSubmit={handleSubmit}

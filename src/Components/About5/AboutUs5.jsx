@@ -11,13 +11,13 @@ const AboutUs5 = () => {
 
       {/* Header */}
       <div className="mb-8 md:mb-12 mt-5">
-        <h1 className="text-[48px] md:text-[96px] text-[#2e4a7d] text-center font-georgia italic inline-block">
+        <h1 className="text-[48px] md:text-[96px] text-[#2e4a7d] 2xl:text-[120px] text-center font-georgia italic inline-block">
           Why Us?
         </h1>
       </div>
 
       {/* Cards Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-7xl w-full 2xl:max-w-9xl">
         
         {/* Card 1 */}
         <div className="bg-[#F3E2C88F] rounded-2xl overflow-hidden p-6 md:p-8 text-left transition transform hover:scale-105">
@@ -25,7 +25,7 @@ const AboutUs5 = () => {
           <h2 className="text-2xl md:text-3xl text-[#2e4a7d] mb-3 md:mb-4 font-['Georgia'] italic">
             Top-Tier Legal Support
           </h2>
-          <p className="text-base md:text-lg text-[#4b2c5e] font-['Helvetica']">
+          <p className="text-base md:text-lg text-[#4b2c5e] font-helvetica">
             Our partnered mesothelioma attorneys specialize in asbestos-related lawsuits and have a proven track record of success.
           </p>
         </div>
@@ -36,7 +36,7 @@ const AboutUs5 = () => {
           <h2 className="text-2xl md:text-3xl text-[#2e4a7d] mb-3 md:mb-4 font-['Georgia'] italic">
             No Upfront Costs
           </h2>
-          <p className="text-base md:text-lg text-[#4b2c5e] font-['Helvetica']">
+          <p className="text-base md:text-lg text-[#4b2c5e] font-helvetica">
             You pay nothing unless we win your case.
           </p>
         </div>
@@ -47,7 +47,7 @@ const AboutUs5 = () => {
           <h2 className="text-2xl md:text-3xl text-[#2e4a7d] mb-3 md:mb-4 font-['Georgia'] italic">
             Comprehensive Resources
           </h2>
-          <p className="text-base md:text-lg text-[#4b2c5e] font-['Helvetica']">
+          <p className="text-base md:text-lg text-[#4b2c5e] font-helvetica">
             Get access to the latest information on legal rights, compensation, and asbestos exposure.
           </p>
         </div>

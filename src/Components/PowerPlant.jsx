@@ -11,6 +11,7 @@ import { sendConstructionFormEmail } from '../utils/emailService'
 import AutoMobileVideo from '../assets/PowerPlant.mp4'
 import logo from '../assets/Meso logo-01 1.png'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 
 import { 
   Button, 
@@ -216,6 +217,7 @@ export default function PowerPlant() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successDialogOpen, setSuccessDialogOpen] = useState(false);
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
 
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {

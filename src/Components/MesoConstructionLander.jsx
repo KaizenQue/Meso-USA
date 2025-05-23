@@ -12,6 +12,7 @@ import AutoMobileVideo from "../assets/video.mp4";
 import NavbarSubDomains from "../Components/NavBarSubDomains/NavBarSubDomains/NavbarSubDomains";
 import Group from "../../src/assets/Group 35645.png";
 import Vector from "../../src/assets/VectorLander.svg";
+import useDynamicPhoneNumber from '../hooks/useDynamicPhoneNumber';
 import {
   Button,
   TextField,
@@ -41,6 +42,7 @@ export default function MesoConstructionLander() {
   const [certId, setCertId] = useState("");
   const [tokenUrl, setTokenUrl] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
+  const { phoneNumber, getCleanPhoneNumber } = useDynamicPhoneNumber();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
